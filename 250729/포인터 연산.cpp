@@ -7,7 +7,7 @@
 //int main()
 //{
 //	int* p;
-//	cout << "64비트 운영체제" << sizeof(p) << endl;
+//	cout << "64비트 운영체제 " << sizeof(p) << endl;
 //
 //	return 0;
 //}
