@@ -5,13 +5,15 @@
 using namespace std;
 
 void InitArray(int pArray[], int iSize);
-void GetRandomNumber(int** ppRandom);
+void GetRandomNumber(int* pRandom);
 void GetLottoNumber(int* pRandom, int pArray[], int pResult[], int iSizeA, int iSizeR);
 void BubbleSort(int pResult[], int iSizeR);
 void PrintResult(int pResult[], int iSizeR);
 
 int main()
 {
+	srand(unsigned(time(0)));
+
 	int iRandom(0);
 	int iArray[45] = { };
 	int iResult[6] = { };
@@ -19,8 +21,6 @@ int main()
 	InitArray(iArray, size(iArray));
 
 	cout << "=============로또 번호 추첨기=============" << endl;
-
-
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -41,26 +41,32 @@ void InitArray(int pArray[], int iSize)
 	}
 }
 
-void GetRandomNumber(int** ppRandom)
+void GetRandomNumber(int* pRandom)
 {
-	srand(unsigned(time(0)));
-
-	**ppRandom = rand() % 45;
+	*pRandom = rand() % 45;
 }
 
 void GetLottoNumber(int* pRandom, int pArray[], int pResult[], int iSizeA, int iSizeR)
 {
-	int iNum(iSizeA);
-	int i(0);
 
-	while (i < iSizeR)
+	for (int i = 0; i < iSizeR;)
 	{
-		GetRandomNumber(&pRandom);
+		GetRandomNumber(pRandom);
 
-		if (*pRandom != iNum)
+		bool bExist = false;
+
+		for (int j = 0; j < i; ++j)
+		{
+			if (pResult[j] == pArray[*pRandom])
+			{
+				bExist = true;
+				break;
+			}
+		}
+
+		if (!bExist)
 		{
 			pResult[i] = pArray[*pRandom];
-			iNum = *pRandom;
 			++i;
 		}
 
