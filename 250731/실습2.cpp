@@ -79,15 +79,15 @@ void BubbleSort(int pResult[], int iSizeR)
 {
 	int iSwap(0);
 
-	for (int i = 0; i < iSizeR; ++i)
+	for (int i = 0; i < iSizeR - 1; ++i)
 	{
-		for (int j = i + 1; j < iSizeR; ++j)
+		for (int j = 0; j < iSizeR - 1 - i; ++j)
 		{
-			if (pResult[i] > pResult[j])
+			if (pResult[j] > pResult[j+1])
 			{
-				iSwap = pResult[j];
-				pResult[j] = pResult[i];
-				pResult[i] = iSwap;
+				iSwap = pResult[j+1];
+				pResult[j+1] = pResult[j];
+				pResult[j] = iSwap;
 			}
 		}
 	}
