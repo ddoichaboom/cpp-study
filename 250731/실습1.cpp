@@ -25,7 +25,6 @@ void InitArray(int pArray[], int iSize)
 	}
 }
 
-// ���ǹ� �̹Ƿ� 2�� for�� ���ǿ� ���� ����
 //void PrintArray(int pArray[], int iSize)
 //{
 //	for (int i = 0; i < iSize; ++i)
@@ -41,7 +40,6 @@ void InitArray(int pArray[], int iSize)
 //	}
 //}
 
-// 2�� for�� 
 void PrintArray(int pArray[])
 {
 	for (int i = 0; i < 5; ++i)
