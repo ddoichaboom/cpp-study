@@ -9,8 +9,8 @@ float GetScoreAver(int iTotal);
 
 struct Score
 {
-	int iAge;
 	char cName[8];
+	int iAge;
 	int iKor;
 	int iEng;
 	int iMat;

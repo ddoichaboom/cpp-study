@@ -5,14 +5,14 @@ using namespace std;
 struct School
 {
 	char cName[10];
-	int iAge;
 	char cSex[8];
+	int iAge;
 };
 
 int main()
 {
-	School s1 = { "호준", 27, "남자" };
-	School s2 = { "지수", 28, "여자" };
+	School s1 = { "호준", "남자", 27 };
+	School s2 = { "지수", "여자", 28 };
 
 	School* p1 = &s1;
 	School* p2 = &s2;
