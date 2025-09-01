@@ -1,0 +1,27 @@
+#include "pch.h"
+#include "CMonster.h"
+
+CMonster::CMonster()
+{
+
+}
+
+CMonster::CMonster(const char* pName, int iHp, int iAttack)
+	: m_tInfo(pName, iHp, iAttack)
+{
+
+}
+
+CMonster::~CMonster()
+{
+
+}
+
+void CMonster::Render()
+{
+	cout << "-------------------------------------------------------" << endl;
+	cout << " 난이도 : " << m_tInfo.cName << endl;
+	cout << " 체력 : " << m_tInfo.iHp << " \t공격력 : " << m_tInfo.iAttack << endl;
+}
+
+
