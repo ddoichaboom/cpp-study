@@ -46,6 +46,7 @@ enum ITEMCLASS
 	IC_END
 };
 
+
 template <typename T>
 void	Safe_Delete(T& p)
 {

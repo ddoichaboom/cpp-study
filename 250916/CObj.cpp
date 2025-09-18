@@ -7,7 +7,7 @@ CObj::CObj()
 }
 
 CObj::CObj(const char* pName, int iHp, int iAttack, int iMoney)
-	: m_tInfo(pName, iHp, iAttack)
+	: m_tInfo(pName, iHp, iAttack, iMoney)
 {
 
 }

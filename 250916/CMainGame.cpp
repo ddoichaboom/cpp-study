@@ -42,8 +42,11 @@ void	CMainGame::Initialize()
 		m_pInven = new CInven;
 		m_pInven->Initialize();
 	}
-}
 
+	m_pInven->Set_Player(m_pPlayer);
+	m_pShop->Set_Inven(m_pInven);
+}
+ 
 void	CMainGame::Update()
 {
 	int iInput(0);
@@ -65,9 +68,13 @@ void	CMainGame::Update()
 			break;
 
 		case SHOP:
+			if (m_pShop)
+				m_pShop->Update();
 			break;
 
 		case INVENTORY:
+			if (m_pInven)
+				m_pInven->Update();
 			break;
 
 		case EXIT:
@@ -78,9 +85,9 @@ void	CMainGame::Update()
 
 void	CMainGame::Release()
 {
-	Safe_Delete<CObj*>(m_pPlayer);
-	Safe_Delete<CField*>(m_pField);
-	Safe_Delete<CShop*>(m_pShop);
 	Safe_Delete<CInven*>(m_pInven);
+	Safe_Delete<CShop*>(m_pShop);
+	Safe_Delete<CField*>(m_pField);
+	Safe_Delete<CObj*>(m_pPlayer);
 
 }
