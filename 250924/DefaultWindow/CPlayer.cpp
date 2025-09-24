@@ -23,7 +23,12 @@ int CPlayer::Update()
 
     Key_Input();
 
-    return 0;
+    return OBJ_NOEVENT;
+}
+
+void CPlayer::Late_Update()
+{
+
 }
 
 void CPlayer::Render(HDC hDC)
@@ -61,12 +66,13 @@ void CPlayer::Key_Input()
     // if (GetAsyncKeyState('W'))
 }
 
-CObj* CPlayer::Create_Bullet()
+CObj* CPlayer::Create_Bullet(DIRECTION eDir)
 {
     CObj*   pBullet = new CBullet;
 
     pBullet->Initialize();
     pBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY);
+    pBullet->Set_Direction(eDir);
 
     return pBullet;
 }

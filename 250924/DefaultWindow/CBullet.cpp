@@ -23,8 +23,22 @@ void CBullet::Initialize()
 
 int CBullet::Update()
 {
+    if (m_bDead)
+        return OBJ_DEAD;
+
     __super::Update_Rect();
     
+    switch (m_eDir)
+    {
+    case DIR_LEFT:
+    case DIR_RIGHT:
+    case DIR_UP:
+    case DIR_DOWN:
+    case DIR_LU:
+    case DIR_RU:
+    
+    }
+
     m_tInfo.fY -= m_fSpeed;
 
     return 0;

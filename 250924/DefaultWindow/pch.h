@@ -2,6 +2,7 @@
 #define PCH_H
 
 #include "framework.h"
+
 #include <list>
 #include <algorithm>
 
