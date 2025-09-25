@@ -17,6 +17,7 @@ public:
 	void					Set_MonsterType(MONSTERTYPE eMtype) { m_eMtype = eMtype; }
 	void					Set_Dead() { m_bDead = true; }
 	const		RECT*		Get_Rect() { return &m_tRect; }
+	void					Set_Angle(float _fAngle) { m_fAngle = _fAngle; }
 
 public:
 	virtual		void		Initialize()		PURE;
@@ -35,5 +36,7 @@ protected:
 	MONSTERTYPE		m_eMtype;
 
 	float			m_fSpeed;
+	float			m_fDistance;
 	bool			m_bDead;
+	float			m_fAngle;
 };

@@ -15,7 +15,7 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize()
 {
     m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 32.f, 32.f };
-    m_fSpeed = 10.f;
+    m_fSpeed = 7.f;
 }
 
 int CPlayer::Update()
@@ -47,76 +47,100 @@ void CPlayer::Release()
 
 void CPlayer::Key_Input()
 {
-    if (GetAsyncKeyState(VK_UP) & 0x8000)
+    if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+    {
+        if (GetAsyncKeyState(VK_UP) & 0x8000)
+        {
+            m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+            m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+        }
+
+        if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+        {
+            m_tInfo.fX -= m_fSpeed / sqrtf(2.f);
+            m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+        }
+        else
+        {
+            m_tInfo.fX -= m_fSpeed;
+        }
+    }
+
+    else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+    {
+        if (GetAsyncKeyState(VK_UP) & 0x8000)
+        {
+            m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+            m_tInfo.fY -= m_fSpeed / sqrtf(2.f);
+        }
+
+        if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+        {
+            m_tInfo.fX += m_fSpeed / sqrtf(2.f);
+            m_tInfo.fY += m_fSpeed / sqrtf(2.f);
+        }
+        else
+        {
+            m_tInfo.fX += m_fSpeed;
+        }
+
+    }
+
+    else if (GetAsyncKeyState(VK_UP) & 0x8000)
         m_tInfo.fY -= m_fSpeed;
 
-    if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-        m_tInfo.fX -= m_fSpeed;
 
-    if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-        m_tInfo.fX += m_fSpeed;
-
-    if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+    else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
         m_tInfo.fY += m_fSpeed;
 
   
-    
-    if (GetAsyncKeyState('W') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_UP));
-    }
+#pragma region WASD ÃÑ¾Ë ¹ß»ç
+    //if (GetAsyncKeyState('W') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_UP));
+    //}
 
-    if (GetAsyncKeyState('A') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LEFT));
-    }
+    //if (GetAsyncKeyState('A') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LEFT));
+    //}
 
-    if (GetAsyncKeyState('D') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
-    }
+    //if (GetAsyncKeyState('D') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
+    //}
 
-    if (GetAsyncKeyState('S') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_DOWN));
-    }
+    //if (GetAsyncKeyState('S') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_DOWN));
+    //}
 
-    if (GetAsyncKeyState('Q') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LU));
-    }
+    //if (GetAsyncKeyState('Q') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LU));
+    //}
 
-    if (GetAsyncKeyState('E') & 0x0001)
-    {
-        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RU));
-    }
+    //if (GetAsyncKeyState('E') & 0x0001)
+    //{
+    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
+    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RU));
+    //}
 
-    if (GetAsyncKeyState('M') & 0x0001)
-    {
-        m_pMonster->push_back(CAbstractFactory<CMonster>::
-            Create_Obj(350, 300, HR_MONSTER));
-    }
-    
+    //if (GetAsyncKeyState('M') & 0x0001)
+    //{
+    //    m_pMonster->push_back(CAbstractFactory<CMonster>::
+    //        Create_Obj(350, 300, HR_MONSTER));
+    //}
+   
+#pragma endregion
 
-    
-
-    // if (GetAsyncKeyState('W'))
+   if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+       m_pBullet->push_back(CAbstractFactory<CBullet>::
+           Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_UP));
 }
 
-//CObj* CPlayer::Create_Bullet(DIRECTION eDir)
-//{
-//    CObj* pBullet = new CBullet;
-//
-//    pBullet->Initialize();
-//
-//    pBullet->Set_Pos(m_tInfo.fX, m_tInfo.fY);
-//    pBullet->Set_Direction(eDir);
-//
-//    return pBullet;
-//}

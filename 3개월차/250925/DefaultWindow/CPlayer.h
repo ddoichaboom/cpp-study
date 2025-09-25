@@ -26,6 +26,8 @@ private:
 	//CObj*			Create_Bullet(DIRECTION eDir);
 
 private:
-	list<CObj*>* m_pBullet;
-	list<CObj*>* m_pMonster;
+	list<CObj*>*	m_pBullet;
+	list<CObj*>*	m_pMonster;
+
+	POINT			m_tPosin;
 };

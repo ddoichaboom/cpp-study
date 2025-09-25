@@ -17,9 +17,18 @@ public:
 	void			Release();
 
 private:
+	HBITMAP			m_hBit;
 	HDC				m_hDC;
-	//CObj*			m_pPlayer;
+	HDC				m_memDC;
 
 	list<CObj*>		m_ObjList[OBJ_END];
+
+	int				m_iFPS;
+	size_t			m_iAmount;
+	DWORD			m_dwStartTime;
+	DWORD			m_dwElapsed;
+
+	TCHAR			m_szFPS[32];
+	TCHAR			m_szBuff[32];
 
 };

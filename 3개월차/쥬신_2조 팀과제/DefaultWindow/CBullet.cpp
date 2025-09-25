@@ -13,10 +13,10 @@ CBullet::~CBullet()
 
 void CBullet::Initialize()
 {
-    m_tInfo.fCX = 10.f;
-    m_tInfo.fCY = 10.f;
+    m_tInfo.fCX = 15.f;
+    m_tInfo.fCY = 15.f;
 
-    m_fSpeed = 3.f;
+    m_fSpeed = 5.f;
 }
 
 int CBullet::Update()
@@ -24,45 +24,25 @@ int CBullet::Update()
     if (m_bDead)
         return OBJ_DEAD;
 
+
+
     __super::Update_Rect();
 
-    switch (m_eDir)
-    {
-    case DIR_LEFT:
-        m_tInfo.fX -= m_fSpeed;
-        break;
 
-    case DIR_RIGHT:
-        m_tInfo.fX += m_fSpeed;
-        break;
-
-    case DIR_UP:
-        m_tInfo.fY -= m_fSpeed;
-        break;
-
-    case DIR_DOWN:
-        m_tInfo.fY += m_fSpeed;
-        break;
-
-    case DIR_LU:
-        m_tInfo.fX -= m_fSpeed;
-        m_tInfo.fY -= m_fSpeed;
-        break;
-
-    case DIR_RU:
-        m_tInfo.fX += m_fSpeed;
-        m_tInfo.fY -= m_fSpeed;
-        break;
-
-
-    }
-
-    return 0;
+    return OBJ_NOEVENT;
 }
 
 void CBullet::Late_Update()
 {
 
+    if (BOUNDARY_LEFT >= m_tRect.left || m_tRect.right >= BOUNDARY_RIGHT ||
+        BOUNDARY_TOP >= m_tRect.top || m_tRect.bottom >= BOUNDARY_BOTTOM)
+    {
+        m_bDead = true;
+    }
+
+    m_tInfo.fX += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
+    m_tInfo.fY -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));
 }
 
 void CBullet::Render(HDC hDC)

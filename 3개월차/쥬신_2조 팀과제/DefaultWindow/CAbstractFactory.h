@@ -28,6 +28,16 @@ public:
 		return pObj;
 	}
 
+	static CObj* Create_Obj(float _fX, float _fY, float _fAngle)
+	{
+		CObj* pObj = new T;
+		pObj->Initialize();
+		pObj->Set_Pos(_fX, _fY);
+		pObj->Set_Angle(_fAngle);
+
+		return pObj;
+	}
+
 	static CObj* Create_Obj(float _fX, float _fY, MONSTERTYPE eMtype)
 	{
 		CObj* pObj = new T;

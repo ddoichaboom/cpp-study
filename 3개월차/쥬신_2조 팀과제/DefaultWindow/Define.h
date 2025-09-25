@@ -1,17 +1,19 @@
 #pragma once
 
-#define WINCX			800
-#define WINCY			600
+#define		WINCX			800
+#define		WINCY			600
 
-#define PURE			= 0
+#define		PURE			= 0
 
-#define OBJ_NOEVENT		0
-#define OBJ_DEAD		1
+#define		OBJ_NOEVENT		0
+#define		OBJ_DEAD		1
 
-#define		BOUNDARY_LEFT	50.f
-#define		BOUNDARY_TOP	0.f
-#define		BOUNDARY_RIGHT  450.f
-#define		BOUNDARY_BOTTOM	600.f
+#define		BOUNDARY_LEFT	 50.f
+#define		BOUNDARY_TOP	 0.f
+#define		BOUNDARY_RIGHT   450.f
+#define		BOUNDARY_BOTTOM	 600.f
+
+#define		PI	 3.141592f
 
 extern	HWND g_hWnd;
 

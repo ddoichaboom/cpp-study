@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CObj.h"
 
-CObj::CObj() : m_fSpeed(0.f), m_bDead(false), m_eDir(DIR_END), m_eMtype(MT_END)
+CObj::CObj() : m_fSpeed(0.f), m_bDead(false), m_eDir(DIR_END), m_eMtype(MT_END),m_fDistance(0.f), 
+m_fAngle(0.f)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));

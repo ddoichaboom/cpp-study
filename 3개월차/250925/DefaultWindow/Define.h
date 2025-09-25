@@ -13,6 +13,8 @@
 #define		BOUNDARY_RIGHT  450.f
 #define		BOUNDARY_BOTTOM	600.f
 
+#define		PI 3.141592f
+
 extern	HWND g_hWnd;
 
 

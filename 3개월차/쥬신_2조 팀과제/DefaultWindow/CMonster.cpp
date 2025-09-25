@@ -52,7 +52,7 @@ void CMonster::Late_Update()
 	if (m_tRect.left <= BOUNDARY_LEFT || BOUNDARY_RIGHT <= m_tRect.right)
 		m_fSpeed *= -1.f;
 
-	if (m_tRect.top <= 100 || m_tRect.bottom >= WINCX - 100)
+	if (m_tRect.top <= BOUNDARY_TOP || BOUNDARY_BOTTOM >= WINCX - 100)
 		m_fSpeed *= -1.f;
 }
 
