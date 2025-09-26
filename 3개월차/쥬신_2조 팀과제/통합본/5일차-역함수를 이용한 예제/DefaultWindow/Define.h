@@ -11,6 +11,12 @@
 #define PI			3.141592f
 
 
+#define		BOUNDARY_LEFT	 50.f
+#define		BOUNDARY_TOP	 0.f
+#define		BOUNDARY_RIGHT   450.f
+#define		BOUNDARY_BOTTOM	 600.f 
+
+
 extern HWND g_hWnd;
 
 typedef struct tagInfo
@@ -48,7 +54,6 @@ enum OBJID
 	PLAYER,
 	BULLET,
 	MONSTER,
-	MOUSE,
 	SHIELD,
 	OBJ_END
 };

@@ -10,8 +10,7 @@ public:
 	virtual ~CPlayer();
 	
 public:
-	//void	Set_Bullet(list<CObj*>* pBullet) { m_pBullet = pBullet; }
-	//void	Set_Shield(list<CObj*>* pShield) { m_pShield = pShield; }
+
 
 public:
 	void Initialize() override;
@@ -22,13 +21,7 @@ public:
 
 private:
 	void	Key_Input();
-	//template<typename T>
-	//CObj* Create_Bullet(float fX, float fY, float fAngle);
-	//CObj* Create_Shield();
-private:
-	//list<CObj*>*	m_pBullet;
-	//list<CObj*>*	m_pShield;
 
-	POINT			m_tPosin;
+
 };
 

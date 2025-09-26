@@ -7,7 +7,6 @@
 
 CPlayer::CPlayer() 
 {
-    ZeroMemory(&m_tPosin, sizeof(POINT));
 }
 
 CPlayer::~CPlayer()
@@ -33,8 +32,7 @@ int CPlayer::Update()
 }
 void CPlayer::Late_Update()
 {
-    m_tPosin.x = long(m_tInfo.fX + m_fDistance * cosf(m_fAngle * (PI / 180.f)));
-    m_tPosin.y = long(m_tInfo.fY - m_fDistance * sinf(m_fAngle * (PI / 180.f)));
+ 
 }
 
 void CPlayer::Render(HDC hDC)
@@ -46,8 +44,8 @@ void CPlayer::Render(HDC hDC)
         m_tRect.bottom);
 
     // Æ÷½Å
-    MoveToEx(hDC, (int)m_tInfo.fX, (int)m_tInfo.fY, nullptr);
-    LineTo(hDC, m_tPosin.x, m_tPosin.y);
+    //MoveToEx(hDC, (int)m_tInfo.fX, (int)m_tInfo.fY, nullptr);
+    //LineTo(hDC, m_tPosin.x, m_tPosin.y);
 }
 
 void CPlayer::Release()
@@ -78,7 +76,7 @@ void CPlayer::Key_Input()
     if (GetAsyncKeyState(VK_SPACE) & 0x8000)
     {
        // m_pBullet->push_back(Create_Bullet<CScrewBullet>((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
-        CObjMgr::Get_Instance()->Add_Object(BULLET, CAbstractFactory<CScrewBullet>::Create_Obj((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
+        //CObjMgr::Get_Instance()->Add_Object(BULLET, CAbstractFactory<CScrewBullet>::Create_Obj((float)m_tPosin.x, (float)m_tPosin.y, m_fAngle));
     } 
 
     //if (GetAsyncKeyState('S') & 0x8000)
