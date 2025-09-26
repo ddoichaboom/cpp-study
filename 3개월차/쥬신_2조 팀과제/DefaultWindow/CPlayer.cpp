@@ -20,9 +20,14 @@ void CPlayer::Initialize()
 
 int CPlayer::Update()
 {
-    Key_Input();
-    
+  
+
     __super::Update_Rect();
+
+    Key_Input();
+
+    //__super::Update_Rect();
+
 
 
     return OBJ_NOEVENT;
@@ -30,26 +35,26 @@ int CPlayer::Update()
 
 void CPlayer::Late_Update()
 {
-    RECT    rcBounDary = { BOUNDARY_LEFT, BOUNDARY_TOP, BOUNDARY_RIGHT, BOUNDARY_BOTTOM };
-    RECT    rc = {};
-
-    if (BOUNDARY_LEFT >= m_tRect.left || BOUNDARY_RIGHT <= m_tRect.right ||
-        BOUNDARY_TOP >= m_tRect.top || BOUNDARY_BOTTOM <= m_tRect.bottom)
+    if (m_tInfo.fX <= BOUNDARY_LEFT + m_tInfo.fCX / 2)
     {
-        IntersectRect(&rc, &m_tRect, &rcBounDary);          // 박스 안에 있으면 rc = m_tRect
-
-        if (BOUNDARY_LEFT >= rc.left)
-            m_tInfo.fX += BOUNDARY_LEFT - rc.left;
-
-        if (BOUNDARY_TOP >= rc.top)
-            m_tInfo.fY += BOUNDARY_TOP - rc.top;
-
-        if (BOUNDARY_RIGHT >= rc.right)
-            m_tInfo.fX -= rc.right - BOUNDARY_RIGHT;
-
-        if (BOUNDARY_BOTTOM <= rc.bottom)
-            m_tInfo.fY -= rc.bottom - BOUNDARY_BOTTOM;
+        m_tInfo.fX = BOUNDARY_LEFT + m_tInfo.fCX / 2;
     }
+    
+     if (m_tInfo.fY <= BOUNDARY_TOP + m_tInfo.fCY / 2)
+        {
+            m_tInfo.fY = BOUNDARY_TOP + m_tInfo.fCY / 2;
+        }
+
+      if (m_tInfo.fX >= BOUNDARY_RIGHT - m_tInfo.fCX / 2)
+         {
+           m_tInfo.fX = BOUNDARY_RIGHT - m_tInfo.fCX / 2;
+         }
+
+     if (m_tInfo.fY >= BOUNDARY_BOTTOM - m_tInfo.fCY / 2)
+        {
+           m_tInfo.fY = BOUNDARY_BOTTOM - m_tInfo.fCY / 2;
+        }
+
 
 }
 
