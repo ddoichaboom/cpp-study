@@ -1,5 +1,7 @@
 #pragma once
 #include "CObj.h"
+#include "CObjMgr.h"
+
 class CShield :
     public CObj
 {

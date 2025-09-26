@@ -30,6 +30,8 @@ int CShield::Update()
 
 	__super::Update_Rect();		
 
+	CObjMgr::Get_Instance()->m_ObjList[OBJ_END]
+
 	return OBJ_NOEVENT;
 }
 

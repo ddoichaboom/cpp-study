@@ -4,6 +4,7 @@
 #include "CBullet.h"
 #include "CMonster.h"
 #include "CPlayer.h"
+#include "CShield.h"
 
 class CObjMgr
 {
