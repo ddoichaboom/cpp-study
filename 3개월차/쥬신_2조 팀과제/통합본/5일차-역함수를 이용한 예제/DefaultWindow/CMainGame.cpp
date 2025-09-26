@@ -6,8 +6,8 @@
 #include "CCollisionMgr.h"
 #include "CObjMgr.h"
 
-CMainGame::CMainGame()// : m_pPlayer(nullptr)
-	: m_dwTime(GetTickCount()), m_iFPS(0)
+CMainGame::CMainGame()
+	: m_dwStartTime(GetTickCount()), m_iFPS(0), m_dwElapsed(0), m_iAmount(0)
 {
 	ZeroMemory(m_szFPS, sizeof(m_szFPS));
 }
@@ -21,6 +21,11 @@ void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
 
+	m_hBit = CreateCompatibleBitmap(m_hDC, 800, 600);
+	m_memDC = CreateCompatibleDC(m_hDC);
+
+	HBITMAP hOldBit = (HBITMAP)SelectObject(m_memDC, m_hBit);
+	DeleteObject(hOldBit);
 
 	CObjMgr::Get_Instance()->Add_Object(PLAYER, CAbstractFactory<CPlayer>::Create_Obj());
 
@@ -54,38 +59,31 @@ void CMainGame::Late_Update()
 
 void CMainGame::Render()
 {
-	// FPS 출력
+
+	Rectangle(m_memDC, 0, 0, WINCX, WINCY);
+
+	Rectangle(m_memDC, BOUNDARY_LEFT, BOUNDARY_TOP, BOUNDARY_RIGHT, BOUNDARY_BOTTOM);
+
+	Rectangle(m_memDC, 475, 100, 775, 300);
 
 	++m_iFPS;
 
-	if (m_dwTime + 1000 < GetTickCount())
+
+
+	if (m_dwStartTime + 1000 < GetTickCount())
 	{
 		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
 
 		SetWindowText(g_hWnd, m_szFPS);
 
 		m_iFPS = 0;
-		m_dwTime = GetTickCount();
+		m_dwStartTime = GetTickCount();
 	}
 
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
-	CObjMgr::Get_Instance()->Render(m_hDC);
-	
-	// 문자열 출력 함수
+	CObjMgr::Get_Instance()->Render(m_memDC);
 
-	//TCHAR	szBuff[32] = L"Hello";
-	//TextOut(m_hDC, 100, 100, szBuff, lstrlen(szBuff));
-	
-	//RECT	rc{ 300, 300, 400, 400 };
-	//DrawText(m_hDC, szBuff, lstrlen(szBuff), &rc, DT_CENTER);
-	
-	//TCHAR	szBuff[32] = L"";
-	//wsprintf(szBuff, L"Bullet : %d", m_ObjList[BULLET].size());
-
-	// 모든 서식 지원
-	//swprintf_s(szBuff, L"Bullet : %f", 3.14f);
-	//TextOut(m_hDC, 50, 50, szBuff, lstrlen(szBuff));
+	BitBlt(m_hDC, 0, 0, 800, 600, m_memDC, 0, 0, SRCCOPY);
 
 }
 
@@ -94,4 +92,7 @@ void CMainGame::Release()
 	ReleaseDC(g_hWnd, m_hDC);
 
 	CObjMgr::Destroy_Instance();	
+
+	DeleteDC(m_memDC);
+	DeleteObject(m_hBit);
 }

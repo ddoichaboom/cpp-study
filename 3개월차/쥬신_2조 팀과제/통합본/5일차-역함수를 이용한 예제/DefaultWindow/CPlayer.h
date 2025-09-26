@@ -1,7 +1,6 @@
 #pragma once
 
 #include "CObj.h"
-#include "CBullet.h"
 
 class CPlayer : public CObj
 {
@@ -21,6 +20,9 @@ public:
 
 private:
 	void	Key_Input();
+
+private:
+	clock_t KeyTimeCheck[10];
 
 
 };

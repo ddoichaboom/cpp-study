@@ -12,6 +12,7 @@
 
 #include <list>
 #include <algorithm>
+#include <time.h>
 #include "CVector2.h"
 
 using namespace std;

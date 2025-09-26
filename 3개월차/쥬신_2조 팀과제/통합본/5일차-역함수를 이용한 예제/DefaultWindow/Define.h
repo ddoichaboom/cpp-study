@@ -57,3 +57,14 @@ enum OBJID
 	SHIELD,
 	OBJ_END
 };
+
+typedef struct tagPlayerInfo
+{
+	int iLevel;
+	int iHp;
+	int iCoin;
+
+	int iBomb;
+	int iShield;
+
+} PLAYERINFO;

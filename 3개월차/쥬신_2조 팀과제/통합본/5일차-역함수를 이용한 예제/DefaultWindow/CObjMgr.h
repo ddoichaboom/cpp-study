@@ -1,6 +1,9 @@
 #pragma once
 
 #include "CObj.h"
+#include "CBullet.h"
+#include "CMonster.h"
+#include "CPlayer.h"
 
 class CObjMgr
 {

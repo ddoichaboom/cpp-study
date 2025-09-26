@@ -54,7 +54,9 @@ void CObjMgr::Late_Update()
 		}
 	}
 	//CCollisionMgr::Collision_Circle(m_ObjList[MOUSE], m_ObjList[MONSTER]);
-	CCollisionMgr::Collision_Rect(m_ObjList[BULLET], m_ObjList[MONSTER]);
+	//CCollisionMgr::Collision_Rect(m_ObjList[BULLET], m_ObjList[MONSTER]);
+	CCollisionMgr::Collision_Rect(m_pInstance->m_ObjList[BULLET], m_pInstance->m_ObjList[MONSTER]);
+
 }
 
 void CObjMgr::Render(HDC hDC)

@@ -12,8 +12,9 @@ CBullet::~CBullet()
 
 void CBullet::Initialize()
 {
-    m_tInfo.fCX = 30.f;
-    m_tInfo.fCY = 30.f;
+    m_tInfo.fCX = 15.f;
+    m_tInfo.fCY = 15.f;
+
     m_fSpeed = 5.f;
 }
 
@@ -32,11 +33,11 @@ int CBullet::Update()
 
 void CBullet::Late_Update()
 {
-    //if (0 >= m_tRect.left || m_tRect.right >= WINCX ||
-    //    0 >= m_tRect.top || m_tRect.bottom >= WINCY)
-    //{
-    //    m_bDead = true;
-    //}
+    if (BOUNDARY_LEFT >= m_tRect.left || m_tRect.right >= BOUNDARY_RIGHT ||
+        BOUNDARY_TOP >= m_tRect.top || m_tRect.bottom >= BOUNDARY_BOTTOM)
+    {
+        m_bDead = true;
+    }
 
     m_tInfo.fX += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
     m_tInfo.fY -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));

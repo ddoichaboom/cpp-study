@@ -22,6 +22,7 @@ int CMonster::Update()
     if (m_bDead)
         return OBJ_DEAD;
 
+    m_tInfo.fX += m_fSpeed;
 
     __super::Update_Rect();
 
@@ -31,22 +32,28 @@ int CMonster::Update()
 
 void CMonster::Late_Update()
 {
-    float   fWidth(0.f), fHeight(0.f), fDiagonal(0.f);
+    if (m_tRect.left <= BOUNDARY_LEFT || BOUNDARY_RIGHT <= m_tRect.right)
+        m_fSpeed *= -1.f;
 
-    fWidth  = m_pTarget->Get_Info()->fX - m_tInfo.fX;
-    fHeight = m_pTarget->Get_Info()->fY- m_tInfo.fY;
+    if (m_tRect.top <= BOUNDARY_TOP || BOUNDARY_BOTTOM >= WINCX - 100)
+        m_fSpeed *= -1.f;
 
-    fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
+    //float   fWidth(0.f), fHeight(0.f), fDiagonal(0.f);
 
-    float fRadian = acosf(fWidth / fDiagonal);
+    //fWidth  = m_pTarget->Get_Info()->fX - m_tInfo.fX;
+    //fHeight = m_pTarget->Get_Info()->fY- m_tInfo.fY;
 
-    m_fAngle = fRadian * 180.f / PI;
+    //fDiagonal = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
-    if (m_tInfo.fY < m_pTarget->Get_Info()->fY)
-        m_fAngle *= -1.f;
+    //float fRadian = acosf(fWidth / fDiagonal);
 
-    m_tInfo.fX += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
-    m_tInfo.fY -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));
+    //m_fAngle = fRadian * 180.f / PI;
+
+    //if (m_tInfo.fY < m_pTarget->Get_Info()->fY)
+    //    m_fAngle *= -1.f;
+
+    //m_tInfo.fX += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
+    //m_tInfo.fY -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));
 
     //if (m_tInfo.fY < m_pTarget->Get_Info()->fY)
     //    fRadian = 2.f * PI - fRadian;
