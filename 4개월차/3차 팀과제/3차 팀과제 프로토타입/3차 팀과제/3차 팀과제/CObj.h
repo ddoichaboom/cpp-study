@@ -17,12 +17,12 @@ public:
 public:
 	// PooledObj 에서 쓸 함수
 	// 현재 풀에서 사용중인지 여부
-	bool    IsInUse() const { return m_bInUse; }
-	void    SetInUse(bool inUse) { m_bInUse = inUse; }
+	bool    IsInUse() const { return m_bInUse; }				// 호준 추가
+	void    SetInUse(bool inUse) { m_bInUse = inUse; }			// 호준 추가 
 
 	// 풀에서 꺼낼 때 / 풀에서 되돌릴 때
-	void    Activate();
-	void    Deactivate();
+	void    Activate();											// 호준 추가
+	void    Deactivate();										// 호준 추가 
 
 public:
 	virtual void	Initialize()	PURE;
@@ -46,10 +46,10 @@ protected:
 	// 본인이 만든 클래스에다 멤버로 추가하고 주석 좀...충돌 처리도 추가하셔야...
 	float	m_fSize;
 
-	D3DXVECTOR3	m_vPoint[4];
-	D3DXVECTOR3	m_vOriginPoint[4];
+	D3DXVECTOR3	m_vPoint[4];							 
+	D3DXVECTOR3	m_vOriginPoint[4];							// 호준 추가 		
 
 	bool	m_bDead;
-	bool    m_bInUse;
+	bool    m_bInUse;										// 호준 추가 
 };
 

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CHJPlayer.h"
 #include "CKeyMgr.h"
+#include "CHJPlayerBullet.h"
+#include "CPoolMgr.h"
 
 CHJPlayer::CHJPlayer()
 {
@@ -22,6 +24,7 @@ void CHJPlayer::Initialize()
 
 	// 플레이어 사이즈 
 	m_fSize = 50.f;
+	m_fSpeed = 3.f;
 
 	m_vPoint[0] = { m_tInfo.vPos.x - m_fSize * 0.5f, m_tInfo.vPos.y - m_fSize * 0.5f, 0.f };
 	m_vPoint[1] = { m_tInfo.vPos.x + m_fSize * 0.5f, m_tInfo.vPos.y - m_fSize * 0.5f, 0.f };
@@ -41,6 +44,10 @@ void CHJPlayer::Initialize()
 int CHJPlayer::Update()
 {
 	Key_Input();
+
+	Player_Movement();
+
+	Look_Mouse();
 
 	// 월드 행렬 구성 - S, R, T
 	D3DXMATRIX matScale, matRotZ, matTrans;
@@ -107,17 +114,28 @@ void CHJPlayer::OnCollision(OBJ_ID eID)
 void CHJPlayer::Key_Input()
 {
 
-	// 시계방향 회전 
-	if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
+	m_vInputDir = { 0.f, 0.f, 0.f };
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing('W'))
 	{
-		m_fAngle += D3DXToRadian(5.f);
+		m_vInputDir.y -= 1.f;
 	}
 
-	// 반시계방향 회전
-	else if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
+	if (CKeyMgr::Get_Instance()->Key_Pressing('A'))
 	{
-		m_fAngle -= D3DXToRadian(5.f);
+		m_vInputDir.x -= 1.f;
 	}
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing('S'))
+	{
+		m_vInputDir.y += 1.f;
+	}
+
+	if (CKeyMgr::Get_Instance()->Key_Pressing('D'))
+	{
+		m_vInputDir.x += 1.f;
+	}
+
 
 	// 재장전 
 	if (CKeyMgr::Get_Instance()->Key_Down('R'))
@@ -129,6 +147,52 @@ void CHJPlayer::Key_Input()
 	// 1. 총알 발사 
 	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
 	{
+		CHJPlayerBullet* pBullet = CPoolMgr::Get_Instance()->Get_PlayerBullet();
 
+		if (pBullet)
+		{
+			// pBullet->Fire(m_vGunPoint, m_tInfo.vLook);
+		}
 	}
+}
+
+void CHJPlayer::Look_Mouse()
+{
+	POINT pt{};
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt); 
+
+	m_vMouse = { (float)pt.x, (float)pt.y, 0 };
+	D3DXVECTOR3 vToMouse = m_vMouse - m_tInfo.vPos;
+
+	// vLook이랑 vToMouse를 정규화 후 내적하면 끼인각이 나옴
+	// vLook은 이미 길이가 1인 벡터 이므로 정규화 필요 X
+	// 자기 자신을 정규화 
+	D3DXVec3Normalize(&vToMouse, &vToMouse);
+
+	float fDot = D3DXVec3Dot(&m_tInfo.vLook, &vToMouse);
+
+	m_fAngle = acosf(fDot);
+
+	D3DXVECTOR3 vCross;
+	D3DXVec3Cross(&vCross, &m_tInfo.vLook, &vToMouse);
+
+	if (vCross.z < 0.f)
+		m_fAngle = -m_fAngle;
+
+}
+
+void CHJPlayer::Player_Movement()
+{
+
+	if ((m_vInputDir.x != 0.f) || (m_vInputDir.y != 0.f))
+	{
+		if (D3DXVec3Length(&m_vInputDir) > 0.f)
+		{
+			D3DXVec3Normalize(&m_vInputDir, &m_vInputDir);
+		}
+	}
+
+	m_tInfo.vPos.x += m_vInputDir.x * m_fSpeed;
+	m_tInfo.vPos.y += m_vInputDir.y * m_fSpeed;
 }

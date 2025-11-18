@@ -13,10 +13,14 @@ private:
 	~CPoolMgr();
 
 public:
+	void Initialize();
 	void Update();
 	void Late_Update();
 	void Render(HDC hDC);
 	void Release();
+
+public:
+	CHJPlayerBullet* Get_PlayerBullet();
 
 public:
 	static CPoolMgr* Get_Instance()
