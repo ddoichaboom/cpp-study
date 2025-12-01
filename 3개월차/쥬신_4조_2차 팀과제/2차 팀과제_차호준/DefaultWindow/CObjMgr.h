@@ -17,8 +17,8 @@ public:
 
 public:
 	void	Add_Object(OBJID eID, CObj* pObj);
-	void	Update(double deltaTime);
-	void	Late_Update();
+	void	Update(double deltaTime = 0.);
+	void	Late_Update(double deltaTime =0.);
 	void	Render(HDC hDC);
 	void	Release();
 

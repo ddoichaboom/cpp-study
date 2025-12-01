@@ -14,9 +14,9 @@
 #include <algorithm>
 #include <time.h>
 #include <string>
-#include "CVector2.h"
 #include <ctime>
 
+#include "CVector2.h"
 
 using namespace std;
 

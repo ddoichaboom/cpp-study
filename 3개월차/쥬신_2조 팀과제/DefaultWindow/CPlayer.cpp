@@ -4,7 +4,7 @@
 
 CPlayer::CPlayer() : m_pBullet(nullptr), m_pMonster(nullptr)
 {
-
+    ZeroMemory(&m_tPInfo, 0);
 }
 
 CPlayer::~CPlayer()
@@ -113,49 +113,12 @@ void CPlayer::Key_Input()
         m_tInfo.fY += m_fSpeed;
 
 
-#pragma region  WASD น฿ป็
-    //if (GetAsyncKeyState('W') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_UP));
-    //}
 
-    //if (GetAsyncKeyState('A') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LEFT));
-    //}
-
-    //if (GetAsyncKeyState('D') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
-    //}
-
-    //if (GetAsyncKeyState('S') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_DOWN));
-    //}
-
-    //if (GetAsyncKeyState('Q') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_LU));
-    //}
-
-    //if (GetAsyncKeyState('E') & 0x0001)
-    //{
-    //    m_pBullet->push_back(CAbstractFactory<CBullet>::
-    //        Create_Obj(m_tInfo.fX, m_tInfo.fY, DIR_RU));
-    //}
-
-#pragma endregion
 
     if (GetAsyncKeyState(VK_SPACE) & 0x0001)
     {
        m_pBullet->push_back(CAbstractFactory<CBullet>::
-            Create_Obj(m_tInfo.fX, m_tInfo.fY, 90));
+            Create_Obj(m_tInfo.fX, m_tInfo.fY, 90, PL_BULLET));
     }
 
     if (GetAsyncKeyState('M') & 0x0001)
@@ -164,6 +127,11 @@ void CPlayer::Key_Input()
             Create_Obj((int)(BOUNDARY_RIGHT - BOUNDARY_LEFT) >> 1, (int)(BOUNDARY_TOP + 200), HR_MONSTER));
     }
     
+    if (GetAsyncKeyState('R') & 0x0001)
+    {
+        m_pBullet->push_back(CAbstractFactory<CBullet>::
+            Create_Obj(m_tInfo.fX, m_tInfo.fY, 0.f, ST_BULLET, 50.f));
+    }
 
     
 

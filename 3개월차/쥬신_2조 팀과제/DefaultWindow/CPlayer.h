@@ -21,11 +21,16 @@ public:
 	void			Render(HDC hDC)	override;
 	void			Release()		override;
 
-private:
-	void			Key_Input();
-	//CObj*			Create_Bullet(DIRECTION eDir);
+
 
 private:
-	list<CObj*>* m_pBullet;
-	list<CObj*>* m_pMonster;
+	void			Key_Input();
+	
+
+
+
+private:
+	list<CObj*>*	m_pBullet;
+	list<CObj*>*	m_pMonster;
+	PLAYERINFO		m_tPInfo;
 };

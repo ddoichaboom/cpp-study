@@ -2,6 +2,7 @@
 
 #include "Define.h"
 #include "CPlayer.h"
+#include "CUi.h"
 
 class CMainGame
 {
@@ -22,6 +23,7 @@ private:
 	HDC				m_memDC;
 
 	list<CObj*>		m_ObjList[OBJ_END];
+	//CUi*			m_pUI;
 
 	int				m_iFPS;
 	size_t			m_iAmount;

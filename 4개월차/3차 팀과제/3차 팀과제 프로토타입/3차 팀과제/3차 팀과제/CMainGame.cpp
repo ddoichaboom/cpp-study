@@ -3,6 +3,22 @@
 #include "CSceneMgr.h"
 #include <ctime>
 #include "CKeyMgr.h"
+#include "CPoolMgr.h"
+#include "CTextMgr.h"
+#include "CUiMgr.h"
+
+// 호준 추가 
+namespace Color
+{
+	extern HBRUSH	g_hDefaultMonsterBrush	= nullptr;
+	extern HPEN		g_hDefaultMonsterPen	= nullptr;
+	extern HBRUSH	g_hTraceMonsterBrush	= nullptr;
+	extern HPEN		g_hTraceMonsterPen		= nullptr;
+	extern HBRUSH	g_hPlayerBulletBrush	= nullptr;
+	extern HPEN		g_hPlayerBulletPen		= nullptr;
+	extern HBRUSH	g_hMonsterBulletBrush	= nullptr;
+	extern HPEN		g_hMonsterBulletPen		= nullptr;
+}
 
 CMainGame::CMainGame() : m_dwTime(GetTickCount()), m_iFPS(0)
 {
@@ -19,11 +35,19 @@ void CMainGame::Initialize()
 	srand(unsigned(time(NULL)));
 	m_hDC = GetDC(g_hWnd);
 
-	m_hBit = CreateCompatibleBitmap(m_hDC, 800, 600);
+	m_hBit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_memDC = CreateCompatibleDC(m_hDC);
 
 	HBITMAP hOldBit = (HBITMAP)SelectObject(m_memDC, m_hBit);
 	DeleteObject(hOldBit);
+
+	CTextMgr::Get_Instance()->Initialize();  
+
+	// 호준 추가 - 오브젝트 풀 
+	CPoolMgr::Get_Instance()->Initialize();
+
+	// 호준 추가 - UI 매니저
+	CUiMgr::Get_Instance()->Initialize();
 
 	CSceneMgr::Get_Instance()->Set_SceneChange(CSceneMgr::SC_HJ);
 }
@@ -31,8 +55,8 @@ void CMainGame::Initialize()
 void CMainGame::Update()
 {
 	Key_Input();
-	CKeyMgr::Get_Instance()->Update();
 	CSceneMgr::Get_Instance()->Update();
+	CKeyMgr::Get_Instance()->Update();
 }
 
 void CMainGame::Late_Update()
@@ -67,7 +91,13 @@ void CMainGame::Release()
 	DeleteDC(m_memDC);
 	DeleteObject(m_hBit);
 
+	CUiMgr::Destroy_Instance();				// 호준 추가
+	CTextMgr::Destroy_Instance();			// 호준 추가 
+
 	CSceneMgr::Destroy_Instance();
+
+	CPoolMgr::Destroy_Instance();			// 호준 추가 
+
 	CKeyMgr::Destroy_Instance();
 }
 

@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <list>
+#include <time.h>			// 호준 추가 
 #include <map>
 #include <algorithm>
 

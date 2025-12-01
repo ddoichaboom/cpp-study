@@ -28,12 +28,14 @@ public:
 		return pObj;
 	}
 
-	static CObj* Create_Obj(float _fX, float _fY, float _fAngle)
+	static CObj* Create_Obj(float _fX, float _fY, float _fAngle, BULLETTYPE eBType, float _fDistance = 0)
 	{
 		CObj* pObj = new T;
 		pObj->Initialize();
 		pObj->Set_Pos(_fX, _fY);
 		pObj->Set_Angle(_fAngle);
+		pObj->Set_Bullet_Type(eBType);
+		//pObj->Set_Distance(_fDistance);
 
 		return pObj;
 	}
@@ -47,6 +49,9 @@ public:
 
 		return pObj;
 	}
+
+	 
+	
 
 
 };

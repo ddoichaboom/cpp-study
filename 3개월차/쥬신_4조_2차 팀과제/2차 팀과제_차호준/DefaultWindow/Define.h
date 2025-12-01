@@ -3,13 +3,15 @@
 #define WINCX		800
 #define WINCY		600
 
-#define	PURE		= 0
+#define	PURE		=	0
 
 #define	OBJ_NOEVENT		0
 #define	OBJ_DEAD		1
 
 #define PI				3.141592f
-#define GC				981.f			// 중력 상수 ( Gravitational Constant ) 
+#define GC				981.f			// 중력 상수 ( Gravitational Constant : 9.81f) 
+#define CoF				100.f			// 바닥면 마찰 계수 (Coefficient of Friction : 1.0f)
+#define AoF				40.f			// 공기 저항 계수 ( 0.4f )
 #define	VK_MAX			0xff
 
 #define BOUNDARY_LEFT	0.f

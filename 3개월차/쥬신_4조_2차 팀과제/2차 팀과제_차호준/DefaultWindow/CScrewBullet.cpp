@@ -43,7 +43,7 @@ int CScrewBullet::Update(double deltaTime)
 	return OBJ_NOEVENT;
 }
 
-void CScrewBullet::Late_Update()
+void CScrewBullet::Late_Update(double deltaTime)
 {
     m_tCenter.x += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
     m_tCenter.y -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));

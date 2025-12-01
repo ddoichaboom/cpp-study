@@ -34,8 +34,8 @@ public:
 
 public:
 	virtual void	Initialize()					PURE;
-	virtual int		Update(double deltaTime)		PURE;
-	virtual void	Late_Update()					PURE;
+	virtual int		Update(double deltaTime = 0.)		PURE;
+	virtual void	Late_Update(double deltaTime = 0. )					PURE;
 	virtual void	Render(HDC hDC)					PURE;
 	virtual void	Release()						PURE;
 
@@ -50,15 +50,13 @@ protected:
 	float		m_fSpeed;
 
 	bool		m_bOnGround;
-	bool		m_bOnLine;
-	float		m_fVx;					// 좌우 이동 속도
-	float		m_fVy;					// 수직 이동 속도
-	float		m_fMaxMoveSpeed;
-	float		m_fAccelSpeed;			// 평지 이동 속도
-	float		m_fJumpSpeed;
+	float		m_fVx;					// x축 이동 속도
+	float		m_fVy;					// y축 이동 속도
+	float		m_fMaxMoveSpeed;		// x축 최대 이동 속도
+	float		m_fAccelSpeed;			// x축 가속도
+	float		m_fJumpSpeed;			// 점프 초기 속도
 	float		m_decel_ground;			// 지표면에서의 좌우 감속
 	float		m_decel_air;			// 공중에서의 좌우 감속
-	double		m_deltaTime;
 
 	float		m_fDistance;
 	float		m_fAngle;

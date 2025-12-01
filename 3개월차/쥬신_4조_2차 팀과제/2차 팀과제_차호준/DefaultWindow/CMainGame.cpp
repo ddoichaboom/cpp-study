@@ -48,14 +48,16 @@ void CMainGame::Update()
 
 	CObjMgr::Get_Instance()->Update(m_deltaTime);	
 
-	m_prevTime = m_currTime;
 }
 
 void CMainGame::Late_Update()
 {
-	CObjMgr::Get_Instance()->Late_Update();	
+	CObjMgr::Get_Instance()->Late_Update(m_deltaTime);
 
 	CKeyMgr::Get_Instance()->Update();
+
+	m_prevTime = m_currTime;
+
 
 }
 

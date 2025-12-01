@@ -129,58 +129,5 @@ bool CCollisionMgr::Check_Circle(CObj* pDst, CObj* pSrc)
 //
 //}
 
-bool CCollisionMgr::Line_Movement(list<CLine*> Dst, list<CObj*> Src)
-{
-	CLine* pTargetLine = nullptr;
-	CObj* pPlayer = nullptr;
 
-	double fDistance(0.f);
-
-	if (Dst.empty())
-		return false;
-
-	for (auto& pLine : Dst)
-	{
-		for (auto& obj : Src)
-		{
-			if ((obj->Get_Info()->fX >= pLine->Get_Info().tLeft.fX) &&
-				(obj->Get_Info()->fX <= pLine->Get_Info().tRight.fX) &&
-				pLine->Get_Info().tfTilt != numeric_limits<float>::infinity())
-			{
-				if (pLine->Get_Info().tfTilt * obj->Get_Info()->fX + pLine->Get_Info().tfYInter >= obj->Get_Info()->fY)
-				{
-					pPlayer = obj;
-					pTargetLine = pLine;
-				}
-			}
-		}
-	}
-
-	if (!pTargetLine && !pPlayer)
-		return false;
-
-	if (pPlayer->Get_Info()->fY <= pTargetLine->Get_Info().tfTilt * pPlayer->Get_Info()->fX +
-		pTargetLine->Get_Info().tfYInter)
-	{
-		fDistance = sqrt(
-			((pTargetLine->Get_Info().tfTilt * pPlayer->Get_Info()->fX - pPlayer->Get_Info()->fY +
-				pTargetLine->Get_Info().tfYInter)
-				* (pTargetLine->Get_Info().tfTilt * pPlayer->Get_Info()->fX - pPlayer->Get_Info()->fY +
-					pTargetLine->Get_Info().tfYInter))
-			/ ((pTargetLine->Get_Info().tfTilt * pTargetLine->Get_Info().tfTilt) + 1));
-
-		if (fDistance <= pPlayer->Get_Info()->fCX / 2.f)
-		{
-			pPlayer->Set_PosX(pTargetLine->Get_Info().tLeft.fX - 
-				(pPlayer->Get_Info()->fCY / 2.f * sinf(pTargetLine->Get_Info().tfRadian) - fDistance * sinf(pTargetLine->Get_Info().tfRadian)));
-			pPlayer->Set_PosY(pTargetLine->Get_Info().tLeft.fY -
-				(pPlayer->Get_Info()->fCY / 2.f * cosf(pTargetLine->Get_Info().tfRadian) - fDistance * cosf(pTargetLine->Get_Info().tfRadian)));
-			return true;
-		}
-		else
-			return false;
-	}
-	else
-		return false;
-}
 

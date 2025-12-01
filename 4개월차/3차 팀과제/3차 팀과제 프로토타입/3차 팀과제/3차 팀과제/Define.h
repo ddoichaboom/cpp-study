@@ -11,6 +11,19 @@
 
 extern HWND g_hWnd;
 
+// 호준 추가 
+namespace Color
+{
+	extern HBRUSH	g_hDefaultMonsterBrush;
+	extern HPEN		g_hDefaultMonsterPen;
+	extern HBRUSH	g_hTraceMonsterBrush;
+	extern HPEN		g_hTraceMonsterPen;
+	extern HBRUSH	g_hPlayerBulletBrush;
+	extern HPEN		g_hPlayerBulletPen	;
+	extern HBRUSH	g_hMonsterBulletBrush;
+	extern HPEN		g_hMonsterBulletPen	;
+}
+
 typedef struct tagInfo
 {
 	D3DXVECTOR3		vPos;		// 위치 벡터
@@ -36,12 +49,13 @@ void Safe_Delete(T& p)
 }
 
 // TODO : 추가 필요하면 추가하고 주석 쓰기
-// 차호준 - BULLET 추가
+// 호준 추가 - PLAYER BULLET, MONSTER BULLET 추가
 enum OBJ_ID
 {
 	PLAYER,
 	MONSTER,
-	BULLET,
+	PLAYER_BULLET,			// 호준 추가 
+	MONSTER_BULLET,			// 호준 추가 
 	OBJ_END
 };
 

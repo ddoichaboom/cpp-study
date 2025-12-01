@@ -27,3 +27,5 @@ bool CCollisionMgr::Check_Circle(CObj* pDst, CObj* pSrc)
 
 	return fRadius >= fDiagonal;
 }
+
+

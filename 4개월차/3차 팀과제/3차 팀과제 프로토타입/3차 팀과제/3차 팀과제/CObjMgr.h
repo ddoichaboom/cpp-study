@@ -10,8 +10,15 @@ private:
 	~CObjMgr();
 
 public:
-	CObj* Get_Player() { if (!m_ObjList[PLAYER].empty()) return m_ObjList[PLAYER].front(); }
-	list<CObj*> Get_List(OBJ_ID eID) { return m_ObjList[eID]; }
+	CObj* Get_Player() 
+	{ 
+		if (!m_ObjList[PLAYER].empty()) 
+			return m_ObjList[PLAYER].front(); 
+
+		return nullptr;								// 호준 추가 ( 플레이어 사망 시 반환하는 것이 없음 ) 
+	}
+	const list<CObj*>& Get_List(OBJ_ID eID) { return m_ObjList[eID]; }
+
 
 public:
 	void Add_Object(OBJ_ID eID, CObj* pObj);

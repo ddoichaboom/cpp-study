@@ -5,8 +5,12 @@
 #include "CPoolMgr.h"
 
 CHJPlayer::CHJPlayer()
+	: m_iMaxBullet(50), m_iMaxBulletBuffer(5), m_iFireMode(SINGLE_SHOT),
+	m_iCurBulletBuffer(0), m_iCurBullet(m_iMaxBullet), m_ckNow(0),
+	m_bWantReload(false), m_iMaxHp(100), m_iCurHp(m_iMaxHp)
 {
 	m_eID = PLAYER;
+	ZeroMemory(m_TimeCheck, sizeof(m_TimeCheck));
 }
 
 CHJPlayer::~CHJPlayer()
@@ -23,7 +27,7 @@ void CHJPlayer::Initialize()
 	m_tInfo.vLook = { 0.f, -1.f, 0.f };
 
 	// 플레이어 사이즈 
-	m_fSize = 50.f;
+	m_fSize = 20.f;
 	m_fSpeed = 3.f;
 
 	m_vPoint[0] = { m_tInfo.vPos.x - m_fSize * 0.5f, m_tInfo.vPos.y - m_fSize * 0.5f, 0.f };
@@ -43,6 +47,18 @@ void CHJPlayer::Initialize()
 
 int CHJPlayer::Update()
 {
+	if (m_iCurHp <= 0)
+		Set_Dead();
+
+	if (m_bDead)
+	{
+		return OBJ_DEAD;
+	}
+
+	m_ckNow = clock();
+	
+	Bullet_State();
+
 	Key_Input();
 
 	Player_Movement();
@@ -72,7 +88,7 @@ int CHJPlayer::Update()
 
 	D3DXVec3TransformCoord(&m_vGunPoint, &m_vGunPoint, &m_tInfo.matWorld);
 
-	return 0;
+	return OBJ_NOEVENT;
 }
 
 void CHJPlayer::Late_Update()
@@ -81,22 +97,11 @@ void CHJPlayer::Late_Update()
 
 void CHJPlayer::Render(HDC hDC)
 {
-	MoveToEx(hDC, (int)m_vPoint[0].x, (int)m_vPoint[0].y, nullptr);
-
-	for (int i = 0; i < 4; ++i)
-	{
-		LineTo(hDC, (int)m_vPoint[i].x, (int)m_vPoint[i].y);
-
-		if (i > 1)
-			continue;
-
-		Ellipse(hDC,
-			int(m_vPoint[i].x - 5.f),
-			int(m_vPoint[i].y - 5.f),
-			int(m_vPoint[i].x + 5.f),
-			int(m_vPoint[i].y + 5.f));
-	}
-	LineTo(hDC, (int)m_vPoint[0].x, (int)m_vPoint[0].y);
+	Ellipse(hDC,
+		int(m_tInfo.vPos.x - m_fSize * 0.5f),
+		int(m_tInfo.vPos.y - m_fSize * 0.5f),
+		int(m_tInfo.vPos.x + m_fSize * 0.5f),
+		int(m_tInfo.vPos.y + m_fSize * 0.5f));
 
 	// 포신 그리기
 	MoveToEx(hDC, (int)m_tInfo.vPos.x, (int)m_tInfo.vPos.y, nullptr);
@@ -109,6 +114,27 @@ void CHJPlayer::Release()
 
 void CHJPlayer::OnCollision(OBJ_ID eID)
 {
+	if (m_bDead)
+		return;
+
+	if (eID == MONSTER)
+	{
+		--m_iCurHp;
+
+		if (m_iCurHp <= 0)
+		{
+			Set_Dead();
+		}
+	}
+	else if (eID == MONSTER_BULLET)
+	{
+		--m_iCurHp;
+
+		if (m_iCurHp <= 0)
+		{
+			Set_Dead();
+		}
+	}
 }
 
 void CHJPlayer::Key_Input()
@@ -136,38 +162,71 @@ void CHJPlayer::Key_Input()
 		m_vInputDir.x += 1.f;
 	}
 
-
 	// 재장전 
 	if (CKeyMgr::Get_Instance()->Key_Down('R'))
 	{
-
+		if ((m_TimeCheck[TC_RELOAD] == 0) && (m_TimeCheck[TC_AUTO_RELOAD] == 0))
+			m_bWantReload = true;
 	}
 
-	// 마우스 상호작용
-	// 1. 총알 발사 
-	if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
+	// 총알 발사 모드 변경 
+	if (CKeyMgr::Get_Instance()->Key_Down('B'))
 	{
-		CHJPlayerBullet* pBullet = CPoolMgr::Get_Instance()->Get_PlayerBullet();
+		++m_iFireMode;
+		if (m_iFireMode >= FT_END)
+			m_iFireMode = SINGLE_SHOT;
+	}
 
-		if (pBullet)
+	// 현재 잔여 총알의 개수 
+	if (m_iCurBullet > 0)
+	{
+		// 총알 발사 타입 - 단발
+		if (m_iFireMode == SINGLE_SHOT)
 		{
-			// pBullet->Fire(m_vGunPoint, m_tInfo.vLook);
+			if (CKeyMgr::Get_Instance()->Key_Down(VK_LBUTTON))
+			{
+				Fire_Bullet();
+			}
+		}
+		// 총알 발사 타입 - 점사
+		else if (m_iFireMode == BURST)
+		{
+			if (m_iCurBulletBuffer >= m_iMaxBulletBuffer)
+				return;
+
+			if (m_iCurBulletBuffer < m_iMaxBulletBuffer)
+			{
+				if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
+				{
+					Fire_Bullet();
+					++m_iCurBulletBuffer;
+
+					if (m_iCurBulletBuffer == m_iMaxBulletBuffer)
+					{
+						m_TimeCheck[TC_BURST] = m_ckNow;
+					}
+				}
+			}
+			
+		}
+		//  총알 발사 타입 - 자동(연발)
+		else if (m_iFireMode == AUTO)
+		{
+			if (CKeyMgr::Get_Instance()->Key_Pressing(VK_LBUTTON))
+			{
+				Fire_Bullet();
+			}
 		}
 	}
+	
 }
 
 void CHJPlayer::Look_Mouse()
 {
-	POINT pt{};
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt); 
+	m_vMouse = Get_Mouse();
 
-	m_vMouse = { (float)pt.x, (float)pt.y, 0 };
 	D3DXVECTOR3 vToMouse = m_vMouse - m_tInfo.vPos;
 
-	// vLook이랑 vToMouse를 정규화 후 내적하면 끼인각이 나옴
-	// vLook은 이미 길이가 1인 벡터 이므로 정규화 필요 X
-	// 자기 자신을 정규화 
 	D3DXVec3Normalize(&vToMouse, &vToMouse);
 
 	float fDot = D3DXVec3Dot(&m_tInfo.vLook, &vToMouse);
@@ -195,4 +254,73 @@ void CHJPlayer::Player_Movement()
 
 	m_tInfo.vPos.x += m_vInputDir.x * m_fSpeed;
 	m_tInfo.vPos.y += m_vInputDir.y * m_fSpeed;
+}
+
+void CHJPlayer::Fire_Bullet()
+{
+	// 현재 잔여 총알의 개수 
+	if (m_iCurBullet > 0)
+	{
+		CHJPlayerBullet* pBullet = CPoolMgr::Get_Instance()->Get_PlayerBullet();
+
+		if (pBullet)
+		{
+			// 총알 생성 기준 - 포신 끝 점
+			D3DXVECTOR3 vStartPos = m_vGunPoint;
+
+			// 총알 진행 방향 - 플레이어가 바라보는 방향
+			D3DXVECTOR3 vDir = m_vGunPoint - m_tInfo.vPos;
+
+			pBullet->Fire(vStartPos, vDir);
+
+			// 발사 후 잔여 총알 개수 감소 
+			m_iCurBullet--;
+		}
+	}
+	
+}
+
+void CHJPlayer::Bullet_State()
+{
+	if (m_iCurBulletBuffer == m_iMaxBulletBuffer)
+	{
+		if (m_ckNow - m_TimeCheck[TC_BURST] >= 250)
+		{
+			m_iCurBulletBuffer = 0;
+			m_TimeCheck[TC_BURST] = 0;
+		}
+	}
+
+	if (m_bWantReload && (m_TimeCheck[TC_RELOAD] == 0))
+	{
+		m_TimeCheck[TC_RELOAD] = m_ckNow;
+	}
+
+	if (m_bWantReload && (m_TimeCheck[TC_RELOAD] != 0) &&
+		(m_ckNow - m_TimeCheck[TC_RELOAD] >= 500))
+	{
+		m_iCurBullet	= m_iMaxBullet;
+		m_bWantReload	= false;
+		m_TimeCheck[TC_RELOAD] = 0;
+	}
+
+	// 잔여 탄약이 없을 때 일정 시간이 지난 후 자동 재장전
+	if (m_iCurBullet == 0 && !m_bWantReload)
+	{
+		if (m_TimeCheck[TC_AUTO_RELOAD] == 0)
+		{
+			m_TimeCheck[TC_AUTO_RELOAD]= m_ckNow;
+		}
+
+		if (m_ckNow - m_TimeCheck[TC_AUTO_RELOAD] >= 1000)
+		{
+			m_iCurBullet = m_iMaxBullet;
+			m_TimeCheck[TC_AUTO_RELOAD] = 0;
+		}
+	}
+	else
+	{
+		m_TimeCheck[TC_AUTO_RELOAD] = 0;
+	}
+
 }

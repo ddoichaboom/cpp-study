@@ -2,6 +2,7 @@
 #include "pch.h"
 #include <memory>
 
+// 호준 추가 
 template<typename T>
     class ObjectPool
 {
@@ -10,7 +11,12 @@ public:
 
     ~ObjectPool()
     {
+        for (auto& obj : m_Objects)
+        {
+            // unique_ptr을 소멸
+        }
 
+        m_Objects.clear();
     }
 
 	void Initialize(size_t maxCount)

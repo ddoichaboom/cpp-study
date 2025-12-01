@@ -53,7 +53,8 @@ enum OBJID
 	PLAYER,
 	BULLET,
 	MONSTER,
-	SHIELD,
+	MONSTER_BULLET,
+	ITEM,
 	OBJ_END
 };
 
@@ -64,3 +65,23 @@ enum MONSTERTYPE
 	UQ_MONSTER,
 	MT_END
 };
+
+enum BULLETTYPE
+{
+	PL_BULLET,
+	MT_BULLET,
+	ST_BULLET,
+	BT_END
+};
+
+typedef struct tagPlayerInfo
+{
+	int iLevel;		
+	int iHp;
+	int iCoin;
+	
+	// æ∆¿Ã≈€ 
+	int iBomb;
+	int iShield;
+
+} PLAYERINFO;

@@ -33,7 +33,7 @@ int CMouse::Update(double deltaTime)
 	return OBJ_NOEVENT;
 }
 
-void CMouse::Late_Update()
+void CMouse::Late_Update(double deltaTime)
 {
 }
 

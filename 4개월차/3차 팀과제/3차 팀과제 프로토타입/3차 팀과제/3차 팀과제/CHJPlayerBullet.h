@@ -16,5 +16,10 @@ public:
     void Release() override;
     void OnCollision(OBJ_ID eID) override;
 
+public:
+    void    Fire(const D3DXVECTOR3& vStartPos, const D3DXVECTOR3& vDir);
+
+private:
+    void    Bullet_Movement();
 };
 

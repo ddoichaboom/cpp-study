@@ -4,6 +4,7 @@
 #include "CHJPlayerBullet.h"
 #include "CHJMonsterBullet.h"
 
+// 호준 추가 
 class CPoolMgr
 {
 private:
@@ -20,7 +21,12 @@ public:
 	void Release();
 
 public:
-	CHJPlayerBullet* Get_PlayerBullet();
+	CHJPlayerBullet*	Get_PlayerBullet();
+	CHJMonster*			Get_Monster();
+	CHJMonsterBullet*	Get_MonsterBullet();
+	ObjectPool<CHJPlayerBullet>& Get_PlayerBulletPool() { return m_PlayerBulletPool; }
+	ObjectPool<CHJMonster>& Get_MonsterPool() { return m_MonsterPool; }
+	ObjectPool<CHJMonsterBullet>& Get_MonsterBulletPool() { return m_MonsterBulletPool; }
 
 public:
 	static CPoolMgr* Get_Instance()
@@ -47,7 +53,6 @@ private:
 	ObjectPool<CHJMonster> m_MonsterPool;					// 최대 50개
 	ObjectPool<CHJPlayerBullet> m_PlayerBulletPool;			// 최대 100개
 	ObjectPool<CHJMonsterBullet> m_MonsterBulletPool;			// 최대 500개
-
 
 };
 

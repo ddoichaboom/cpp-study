@@ -24,6 +24,9 @@ public:
 	void    Activate();											// 호준 추가
 	void    Deactivate();										// 호준 추가 
 
+	bool	Is_Dead() const { return m_bDead; }					// 호준 추가
+	
+
 public:
 	virtual void	Initialize()	PURE;
 	virtual int		Update()		PURE;
@@ -51,5 +54,6 @@ protected:
 
 	bool	m_bDead;
 	bool    m_bInUse;										// 호준 추가 
+
 };
 

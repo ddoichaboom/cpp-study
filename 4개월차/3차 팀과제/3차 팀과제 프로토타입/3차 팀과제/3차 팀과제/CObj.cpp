@@ -19,13 +19,12 @@ CObj::~CObj()
 // 호준 추가 
 void CObj::Activate()
 {
-	m_bInUse	=	true;
-	m_bDead		=	false;		
+	m_bInUse	= true; 
+	m_bDead		= false;
 }
 
 // 호준 추가 
 void CObj::Deactivate()
 {
 	m_bInUse =	false;
-	m_bDead	 =	true;
 }

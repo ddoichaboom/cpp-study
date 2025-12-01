@@ -6,7 +6,7 @@
 
 
 CMainGame::CMainGame()
-	: m_dwStartTime(GetTickCount()), m_iFPS(0), m_dwElapsed(0), m_iAmount(0)
+	: m_dwStartTime(GetTickCount()), m_iFPS(0), m_dwElapsed(0), m_iAmount(0), m_pUI(nullptr)
 {
 	ZeroMemory(m_szFPS, sizeof(m_szFPS));
 	ZeroMemory(m_szFPS, sizeof(m_szBuff));
@@ -33,6 +33,7 @@ void CMainGame::Initialize()
 
 	dynamic_cast<CPlayer*>(m_ObjList[PLAYER].front())->Set_Bullet(&m_ObjList[BULLET]);
 	dynamic_cast<CPlayer*>(m_ObjList[PLAYER].front())->Set_Monster(&m_ObjList[MONSTER]);
+	dynamic_cast<CPlayer*>(m_ObjList[PLAYER].front())->Set_Monster(&m_ObjList[MONSTER_BULLET]);
 
 }
 
@@ -71,6 +72,7 @@ void	CMainGame::Late_Update()
 		}
 	}
 	CCollisionMgr::Collision_Rect(m_ObjList[BULLET], m_ObjList[MONSTER]);
+	//CCollisionMgr::Collision_Circle(m_ObjList[BULLET], m_ObjList[MONSTER_BULLET]);
 }
 
 

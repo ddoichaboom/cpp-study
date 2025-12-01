@@ -30,7 +30,7 @@ int CBullet::Update(double deltaTime)
 	return OBJ_NOEVENT;
 }
 
-void CBullet::Late_Update()
+void CBullet::Late_Update(double deltaTime)
 {
     //if (0 >= m_tRect.left || m_tRect.right >= WINCX ||
     //    0 >= m_tRect.top || m_tRect.bottom >= WINCY)

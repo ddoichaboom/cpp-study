@@ -31,11 +31,11 @@ struct Monster
 enum GamePhase
 {
 	MENU = 0,				// 1. 게임 시작		2. 종료
-	DIFFICULTSELECT,				// 1. 쉬움	2. 보통	3. 어려움	4. 최고로 어려움
+	DIFFICULTSELECT,		// 1. 쉬움	2. 보통	3. 어려움	4. 최고로 어려움
 	BATTLE,					// 1. 공격			2. 도망
-	REWARD,					// 확인
-	LEVELUP,
-	DEAD
+	REWARD,					// 보상
+	LEVELUP,				// 레벨업 
+	DEAD					// 사망
 };
 
 enum PlayerChoice

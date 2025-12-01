@@ -14,32 +14,26 @@ CLineMgr::~CLineMgr()
 
 void CLineMgr::Initialize()
 {
-	LINEPOINT	tLinePoint[11] = 
+	LINEPOINT	tLinePoint[8] = 
 	{
-		{ 100.f, 500.f},	//0
-		{ 200.f, 500.f},	//1
-		{ 200.f, 400.f},	//2
-		{ 300.f, 400.f},	//3
-		{ 300.f, 300.f},	//4
-		{ 400.f, 300.f},	//5
-		{ 400.f, 200.f},	//6
-		{ 500.f, 400.f},	//7
-		{700.f, 200.f},		//8
-		{700.f, 100.f},		//9
-		{400.f, 100.f},		//10
+		{ 0.f, 500.f },			//0
+		{ 150.f, 500.f },		//1
+		{ 150.f, 500.f },		//2
+		{ 300.f, 350.f },		//3
+		{ 0.f, 200.f },			//4
+		{ 150.f, 200.f },		//5
+		{ 150.f, 200.f },		//5
+		{ 300.f, 500.f },
+
 	};
 
+	//for (int i = 0; i < size(tLinePoint) / 2; i++)
+	//{
+	//	m_LineList.push_back(new CLine(tLinePoint[2*i], tLinePoint[2*i+1]));
+	//}
 	m_LineList.push_back(new CLine(tLinePoint[0], tLinePoint[1]));
-	m_LineList.push_back(new CLine(tLinePoint[1], tLinePoint[2]));
 	m_LineList.push_back(new CLine(tLinePoint[2], tLinePoint[3]));
-	m_LineList.push_back(new CLine(tLinePoint[3], tLinePoint[5]));
-	//m_LineList.push_back(new CLine(tLinePoint[4], tLinePoint[5]));
-	//m_LineList.push_back(new CLine(tLinePoint[5], tLinePoint[6]));
-	m_LineList.push_back(new CLine(tLinePoint[5], tLinePoint[7]));
-	//m_LineList.push_back(new CLine(tLinePoint[7], tLinePoint[8]));
-	//m_LineList.push_back(new CLine(tLinePoint[8], tLinePoint[10]));
-	//m_LineList.push_back(new CLine(tLinePoint[8], tLinePoint[9]));
-	//m_LineList.push_back(new CLine(tLinePoint[9], tLinePoint[10]));
+
 
 
 }
@@ -70,8 +64,8 @@ CLine* CLineMgr::Collision_Line(INFO* m_pInfo)
 
 	for (auto& pLine : m_LineList)
 	{
-		if ((m_pInfo->fX >= pLine->Get_Info().tLeft.fX) &&
-			(m_pInfo->fX <= pLine->Get_Info().tRight.fX) &&
+		if ((m_pInfo->fX > pLine->Get_Info().tLeft.fX) &&
+			(m_pInfo->fX < pLine->Get_Info().tRight.fX) &&
 			(pLine->Get_Info().tLeft.fX != pLine->Get_Info().tRight.fX))
 		{                         
 			if (m_pInfo->fY <= pLine->Get_Info().tfTilt * m_pInfo->fX + pLine->Get_Info().tfYInter)

@@ -47,7 +47,7 @@ int CGuideBullet::Update(double deltaTime)
     return OBJ_NOEVENT;
 }
 
-void CGuideBullet::Late_Update()
+void CGuideBullet::Late_Update(double deltaTime)
 {
     m_tInfo.fX += m_fSpeed * cosf(m_fAngle * (PI / 180.f));
     m_tInfo.fY -= m_fSpeed * sinf(m_fAngle * (PI / 180.f));

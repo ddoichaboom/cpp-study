@@ -29,7 +29,7 @@ int CMonster::Update(double deltaTime)
     return OBJ_NOEVENT;
 }
 
-void CMonster::Late_Update()
+void CMonster::Late_Update(double deltaTime)
 {
     //float   fWidth(0.f), fHeight(0.f), fDiagonal(0.f);
     //

@@ -73,18 +73,17 @@ void CObjMgr::Update(double deltaTime)
 	}
 }
 
-void CObjMgr::Late_Update()
+void CObjMgr::Late_Update(double deltaTime)
 {
 	for (UINT i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
 		{
-			pObj->Late_Update();
+			pObj->Late_Update(deltaTime);
 		}
 	}
 	CCollisionMgr::Collision_Circle(m_ObjList[BULLET], m_ObjList[MONSTER]);
 	CCollisionMgr::Collision_RectEx(m_ObjList[MONSTER], m_ObjList[PLAYER]);
-	//CCollisionMgr::Line_Movement(CLineMgr::Get_Instance()->Get_LineList(), m_ObjList[PLAYER]);
 	//CCollisionMgr::Collision_Line(CLineMgr::Get_Instance()->Get_LineList(), m_ObjList[BULLET]);
 }
 

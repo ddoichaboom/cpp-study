@@ -33,7 +33,7 @@ int CShield::Update(double deltaTime)
 	return OBJ_NOEVENT;
 }
 
-void CShield::Late_Update()
+void CShield::Late_Update(double deltaTime)
 {
 }
 
