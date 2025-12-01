@@ -53,6 +53,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (nullptr == pMainApp)
         return FALSE;
 
+    if (FAILED(CTimerMgr::GetInstance()->Ready_Timer(L"Timer_Immediate")))
+        return FALSE;
+
+    if (FAILED(CTimerMgr::GetInstance()->Ready_Timer(L"Timer_FPS60")))
+        return FALSE;
+
+    if (FAILED(CFrameMgr::GetInstance()->Ready_Frame(L"Frame60", 60.f)))
+        return FALSE;
+
     // 기본 메시지 루프입니다:
     while (true)
     {
@@ -69,9 +78,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            pMainApp->Update_MainApp(0.f);
-            pMainApp->LateUpdate_MainApp(0.f);
-            pMainApp->Render_MainApp();
+            CTimerMgr::GetInstance()->Set_TimeDelta(L"Timer_Immediate");
+            _float fTimer_Immediate = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_Immediate");
+
+            if (CFrameMgr::GetInstance()->IsPermit_Call(L"Frame60", fTimer_Immediate))
+            {
+                CTimerMgr::GetInstance()->Set_TimeDelta(L"Timer_FPS60");
+                _float fTimer_FPS60 = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
+
+                pMainApp->Update_MainApp(fTimer_FPS60);
+                pMainApp->LateUpdate_MainApp(fTimer_FPS60);
+                pMainApp->Render_MainApp();
+            }
+            
         }
 
     }

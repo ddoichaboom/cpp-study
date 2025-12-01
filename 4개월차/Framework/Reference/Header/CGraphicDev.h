@@ -18,10 +18,10 @@ public:
 
 public:
 	HRESULT		Ready_GraphicDev(HWND hWnd,
-		WINMODE eMode,
-		const _uint& iSizeX,
-		const _uint& iSizeY,
-		CGraphicDev** ppGraphicDev);
+									WINMODE eMode,
+									const _uint& iSizeX,
+									const _uint& iSizeY,
+									CGraphicDev** ppGraphicDev);
 
 	void	Render_Begin(D3DXCOLOR Color);
 	void	Render_End();

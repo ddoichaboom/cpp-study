@@ -1,8 +1,10 @@
 #pragma once
 
 #include "CBase.h"
-//#include "../../Base/CBase.h"
 #include "CGraphicDev.h"
+#include "CTimerMgr.h"
+#include "CFrameMgr.h"
+#include "CManagement.h"
 
 class CMainApp : public CBase
 {
@@ -13,20 +15,25 @@ private:
 	virtual ~CMainApp();
 
 public:
-	HRESULT			Ready_MainApp();
-	int				Update_MainApp(const float& fTimeDelta);
-	void			LateUpdate_MainApp(const float& fTimeDelta);
-	void			Render_MainApp();
+	HRESULT					Ready_MainApp();
+	int						Update_MainApp(const float& fTimeDelta);
+	void					LateUpdate_MainApp(const float& fTimeDelta);
+	void					Render_MainApp();
+
+private:
+	HRESULT					Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev);
+	HRESULT					Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
-	Engine::CGraphicDev* m_pDeviceClass;
+	Engine::CGraphicDev*	m_pDeviceClass;
+	Engine::CManagement*	m_pManagementClass;
 
 public:
-	static CMainApp* Create();
+	static CMainApp*		Create();
 
 private:
-	virtual void		Free();
+	virtual void			Free();
 
 };
 
