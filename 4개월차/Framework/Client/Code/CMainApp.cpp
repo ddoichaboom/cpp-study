@@ -6,6 +6,7 @@ CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr),
 	m_pManagementClass(CManagement::GetInstance())
 {
+
 }
 
 CMainApp::~CMainApp()
