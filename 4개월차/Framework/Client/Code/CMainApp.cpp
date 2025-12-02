@@ -85,8 +85,6 @@ CMainApp* CMainApp::Create()
 		Safe_Release(pMainApp);
 		MSG_BOX("MainApp Create Failed");
 		return nullptr;
-
-		return nullptr;
 	}
 
 	return pMainApp;
