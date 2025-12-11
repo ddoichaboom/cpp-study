@@ -19,6 +19,9 @@ HRESULT CMainApp::Ready_MainApp()
 
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
+
+	return S_OK;
+
 }
 
 int CMainApp::Update_MainApp(const float& fTimeDelta)

@@ -17,8 +17,12 @@ private:
 	HRESULT					Ready_GameLogic_Layer(const _tchar* pLayerTag) { return S_OK; }
 	HRESULT					Ready_UI_Layer(const _tchar* pLayerTag) { return S_OK; }
 
+private:
+	HRESULT					Ready_Prototype();
+
 public:
 	static		CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 private:
 	virtual		void		Free();
 };

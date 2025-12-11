@@ -22,7 +22,7 @@ protected:
 	_bool				m_bClone;
 
 public:
-	// virtual CComponent* Clone()	PURE;		// 프로토타입 패턴 사용 예시
+	virtual CComponent* Clone()	PURE;		// 프로토타입 패턴 사용 예시
 
 protected:
 	virtual void		Free();

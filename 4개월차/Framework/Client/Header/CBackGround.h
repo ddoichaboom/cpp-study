@@ -1,5 +1,6 @@
 #pragma once
 #include "CGameObject.h"
+#include "CTriCol.h"
 
 class CBackGround : public CGameObject
 {
@@ -13,6 +14,12 @@ public:
 	virtual	_int			Update_GameObject(const _float& fTimeDelta);
 	virtual	void			LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual	void			Render_GameObject();
+
+private:
+	HRESULT					Add_Component();
+
+private:
+	Engine::CTriCol* m_pBufferCom;
 
 public:
 	static	CBackGround*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

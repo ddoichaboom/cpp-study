@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CBackGround.h"
+#include <CProtoMgr.h>
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -17,6 +18,9 @@ CBackGround::~CBackGround()
 
 HRESULT	CBackGround::Ready_GameObject()
 {
+	if (FAILED(Add_Component()))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -37,6 +41,22 @@ void	CBackGround::Render_GameObject()
 	CGameObject::Render_GameObject();
 }
 
+HRESULT CBackGround::Add_Component()
+{
+	Engine::CComponent* pComponent = nullptr;
+
+	// TriCol
+	pComponent = m_pBufferCom = dynamic_cast<Engine::CTriCol*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TriCol"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
+	return S_OK;
+}
+
 CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CBackGround* pBackGround = new CBackGround(pGraphicDev);
@@ -53,5 +73,7 @@ CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void	CBackGround::Free()
 {
+	Safe_Release(m_pBufferCom);
+
 	CGameObject::Free();
 }

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CLogo.h"
 #include "CBackGround.h"
+#include "CProtoMgr.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     :   CScene(pGraphicDev)
@@ -15,6 +16,9 @@ CLogo::~CLogo()
 
 HRESULT		CLogo::Ready_Scene()
 {
+    if (FAILED(Ready_Prototype()))
+        return E_FAIL;
+
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
 
@@ -56,6 +60,15 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CLogo::Ready_Prototype()
+{
+    
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TriCol", Engine::CTriCol::Create(m_pGraphicDev))))
+        return E_FAIL;
 
     return S_OK;
 }
