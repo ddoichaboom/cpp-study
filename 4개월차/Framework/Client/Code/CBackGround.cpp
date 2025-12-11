@@ -38,7 +38,7 @@ void	CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 
 void	CBackGround::Render_GameObject()
 {
-	CGameObject::Render_GameObject();
+	m_pBufferCom->Render_Buffer();
 }
 
 HRESULT CBackGround::Add_Component()
