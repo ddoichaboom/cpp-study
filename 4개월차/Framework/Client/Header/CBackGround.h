@@ -1,6 +1,11 @@
 #pragma once
 #include "CGameObject.h"
-#include "CTriCol.h"
+
+namespace Engine
+{
+	class CRcCol;
+	class CTransform;
+}
 
 class CBackGround : public CGameObject
 {
@@ -17,9 +22,11 @@ public:
 
 private:
 	HRESULT					Add_Component();
+	void					Key_Input(const _float& fTimeDelta);
 
 private:
-	Engine::CTriCol* m_pBufferCom;
+	Engine::CRcCol*		m_pBufferCom;
+	Engine::CTransform*		m_pTransformCom;
 
 public:
 	static	CBackGround*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -24,6 +24,10 @@ protected:
     _ulong                  m_dwTriCnt;
     _ulong                  m_dwFVF;
 
+    LPDIRECT3DINDEXBUFFER9        m_pIB;
+    _ulong                  m_dwIdxSize;
+    D3DFORMAT               m_IdxFmt;
+
 public:
     virtual     void        Free();
 };

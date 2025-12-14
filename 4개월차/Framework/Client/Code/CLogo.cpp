@@ -70,6 +70,12 @@ HRESULT CLogo::Ready_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TriCol", Engine::CTriCol::Create(m_pGraphicDev))))
         return E_FAIL;
 
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcCol", Engine::CRcCol::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -89,5 +95,5 @@ CLogo* CLogo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CLogo::Free()
 {
-    Engine::CScene::Free();
+    CScene::Free();
 }

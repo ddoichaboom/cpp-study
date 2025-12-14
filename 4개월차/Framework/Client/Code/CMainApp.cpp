@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMainApp.h"
 #include "CLogo.h"
+#include "CProtoMgr.h"
 
 CMainApp::CMainApp() 
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr),
@@ -56,8 +57,8 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	m_pDeviceClass->AddRef();
 
-	m_pGraphicDev = m_pDeviceClass->Get_GraphicDev();
-	m_pGraphicDev->AddRef();
+	(*ppGraphicDev) = m_pDeviceClass->Get_GraphicDev();
+	(*ppGraphicDev)->AddRef();
 
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
@@ -115,6 +116,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();
 	CTimerMgr::DestroyInstance();
 	CManagement::DestroyInstance();

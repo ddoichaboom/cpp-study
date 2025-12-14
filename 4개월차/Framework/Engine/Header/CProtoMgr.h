@@ -1,5 +1,8 @@
 #pragma once
 #include "CTriCol.h"
+#include "CRcCol.h"
+
+#include "CTransform.h"
 
 BEGIN(Engine)
 
