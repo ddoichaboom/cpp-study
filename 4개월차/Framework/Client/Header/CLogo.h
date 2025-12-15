@@ -1,6 +1,9 @@
 #pragma once
 #include "CScene.h"
 
+#include "CPlayer.h"
+#include "CMonster.h"
+
 class CLogo : public CScene
 {
 	explicit	CLogo(LPDIRECT3DDEVICE9 pGraphicDev);

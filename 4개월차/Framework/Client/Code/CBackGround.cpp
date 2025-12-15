@@ -53,10 +53,6 @@ HRESULT CBackGround::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 
-	//// TriCol
-	//pComponent = m_pBufferCom = dynamic_cast<Engine::CTriCol*>
-	//	(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TriCol"));
-
 	// RcCol
 	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcCol*>
 		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcCol"));

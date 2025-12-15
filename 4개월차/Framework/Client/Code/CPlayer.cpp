@@ -132,3 +132,24 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_pTransformCom->Rotation(ROT_Z, -180.f * fTimeDelta);
 	}
 }
+
+CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CPlayer* pPlayer = new CPlayer(pGraphicDev);
+
+	if (FAILED(pPlayer->Ready_GameObject()))
+	{
+		Safe_Release(pPlayer);
+		MSG_BOX("pPlayer Create Failed");
+		return nullptr;
+	}
+
+	return pPlayer;
+}
+
+void CPlayer::Free()
+{
+	Safe_Release(m_pBufferCom);
+
+	CGameObject::Free();
+}
