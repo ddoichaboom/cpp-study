@@ -5,6 +5,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CTransform : public CComponent
 {
+private:
 	explicit CTransform();
 	explicit CTransform(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTransform(const CTransform& rhs);
@@ -38,6 +39,8 @@ public:
 		memcpy(pInfo, &m_matWorld.m[eType][0], sizeof(_vec3));
 	}
 
+	void				Chase_Target(const _vec3* pTargetPos, const _float& fTimeDelta, const _float& fSpeed);
+	_matrix*			Compute_LookAtTarget(const _vec3* pTargetPos);
 public:
 	_vec3		m_vInfo[INFO_END];
 	_vec3		m_vScale;

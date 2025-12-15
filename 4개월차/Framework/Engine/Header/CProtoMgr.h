@@ -1,8 +1,10 @@
 #pragma once
 #include "CTriCol.h"
 #include "CRcCol.h"
+#include "CRcTex.h"
 
 #include "CTransform.h"
+#include "CTexture.h"
 
 BEGIN(Engine)
 

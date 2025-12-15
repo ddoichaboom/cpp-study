@@ -51,12 +51,28 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
     CGameObject* pGameObject = nullptr;
 
     // BackGround
-    pGameObject = CBackGround::Create(m_pGraphicDev);
+    //pGameObject = CBackGround::Create(m_pGraphicDev);
+
+    //if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
+    //    return E_FAIL;
+    
+
+    // Player
+    pGameObject = CPlayer::Create(m_pGraphicDev);
 
     if (nullptr == pGameObject)
         return E_FAIL;
     
-    if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
+    if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
+        return E_FAIL;
+
+    // Monster
+    pGameObject = CMonster::Create(m_pGraphicDev);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Monster", pGameObject)))
         return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
@@ -73,7 +89,13 @@ HRESULT CLogo::Ready_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcCol", Engine::CRcCol::Create(m_pGraphicDev))))
         return E_FAIL;
 
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PlayerTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Player/Ma.jpg", 1))))
         return E_FAIL;
 
     return S_OK;

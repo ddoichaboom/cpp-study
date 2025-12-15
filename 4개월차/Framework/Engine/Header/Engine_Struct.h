@@ -17,7 +17,7 @@ namespace Engine
 	typedef struct tagVertexTexture
 	{
 		_vec3		vPosition;
-		_vec2		vTexUV;
+		_vec2		vTexUV;			// 텍스처 좌표 
 
 	}VTXTEX;
 

@@ -92,7 +92,51 @@ void	CTransform::LateUpdate_Component()
 
 }
 
-CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev) 
+void CTransform::Chase_Target(const _vec3* pTargetPos, const _float& fTimeDelta, const _float& fSpeed)
+{
+	_vec3	vDir = *pTargetPos - m_vInfo[INFO_POS];
+
+	m_vInfo[INFO_POS] += *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * fSpeed;
+
+	_matrix matScale, matRot, matTrans;
+
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+	D3DXMatrixTranslation(&matTrans,
+		m_vInfo[INFO_POS].x,
+		m_vInfo[INFO_POS].y,
+		m_vInfo[INFO_POS].z);
+
+	matRot = *Compute_LookAtTarget(pTargetPos);
+
+	m_matWorld = matScale * matRot * matTrans;
+}
+
+_matrix* CTransform::Compute_LookAtTarget(const _vec3* pTargetPos)
+{
+	_vec3	vDir = *pTargetPos - m_vInfo[INFO_POS];
+
+	_matrix matRot; 
+	_vec3	vUp, vAxis;
+
+	//D3DXVec3Cross(&vAxis, &m_vInfo[INFO_UP], &vDir);
+	//
+	//D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]);
+	//D3DXVec3Normalize(&vDir, &vDir);
+	//
+	//float fDot = D3DXVec3Dot(&vUp, &vDir);
+	//float fAngle = acosf(fDot);
+	//
+	//D3DXMatrixRotationAxis(&matRot, &vAxis, fAngle);
+	//
+	//return &matRot;
+
+	return D3DXMatrixRotationAxis(&matRot,
+		D3DXVec3Cross(&vAxis, &m_vInfo[INFO_UP], &vDir),
+		acosf(D3DXVec3Dot(D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]),
+			D3DXVec3Normalize(&vDir, &vDir))));
+}
+
+CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CTransform* pTransform = new CTransform(pGraphicDev);
 
