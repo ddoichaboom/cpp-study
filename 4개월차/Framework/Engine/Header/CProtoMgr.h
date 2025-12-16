@@ -2,6 +2,7 @@
 #include "CTriCol.h"
 #include "CRcCol.h"
 #include "CRcTex.h"
+#include "CTerrainTex.h"
 
 #include "CTransform.h"
 #include "CTexture.h"

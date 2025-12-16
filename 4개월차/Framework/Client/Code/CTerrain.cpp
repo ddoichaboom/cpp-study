@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CTerrain.h"
 #include "CProtoMgr.h"
+#include "CRenderer.h"
 
 CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -28,6 +29,7 @@ _int CTerrain::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_PRIORITY, this);
 	return iExit;
 }
 
@@ -40,14 +42,13 @@ void CTerrain::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-	// 와이어 프레임 모드
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	m_pTextureCom->Set_Texture(0);
 
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 }
 

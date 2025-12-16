@@ -3,6 +3,7 @@
 #include "CLogo.h"
 #include "CStage.h"
 #include "CProtoMgr.h"
+#include "CRenderer.h"
 
 CMainApp::CMainApp() 
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr),
@@ -102,6 +103,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CRenderer::DestroyInstance();
 	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();
 	CTimerMgr::DestroyInstance();

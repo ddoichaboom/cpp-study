@@ -26,6 +26,7 @@ public:
 								const _ulong& dwVtxItx = VTXITV);
 
 	virtual CComponent* Clone();
+
 private:
 	virtual		void	Free();
 };

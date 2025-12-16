@@ -39,7 +39,6 @@ void	CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 
 void	CLogo::Render_Scene()
 {
-    Engine::CScene::Render_Scene();
 }
 
 HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
