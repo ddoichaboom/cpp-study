@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMainApp.h"
 #include "CLogo.h"
+#include "CStage.h"
 #include "CProtoMgr.h"
 
 CMainApp::CMainApp() 
@@ -62,27 +63,12 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	// 임시 코드
-
-	_matrix matView, matProj;
-
-	_vec3   vEye{ 0.f, 0.f, -10.f };
-	_vec3   vAt{ 0.f, 0.f, 1.f };
-	_vec3   vUp{ 0.f, 1.f, 0.f };
-
-	D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)WINCX / WINCY, 0.1f, 1000.f);
-
-
-	(*ppGraphicDev)->SetTransform(D3DTS_VIEW, &matView);
-	(*ppGraphicDev)->SetTransform(D3DTS_PROJECTION, &matProj);
-
 	return S_OK;
 }
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	Engine::CScene* pLogo = CLogo::Create(pGraphicDev);
+	Engine::CScene* pLogo = CStage::Create(pGraphicDev);
 
 	if (nullptr == pLogo)
 		return E_FAIL;

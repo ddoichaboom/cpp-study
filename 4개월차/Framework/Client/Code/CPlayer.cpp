@@ -45,9 +45,22 @@ void CPlayer::Render_GameObject()
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pTextureCom->Set_Texture(0);
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 
+	m_pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	m_pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);
+
+	m_pTextureCom->Set_Texture(0);
 	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+	m_pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
@@ -90,7 +103,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
 	_vec3		vLook;
 
-	m_pTransformCom->Get_Info(INFO_UP, &vLook);
+	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 
 	if (GetAsyncKeyState(VK_UP))
 	{
@@ -102,35 +115,16 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, -10.f);
 	}
 
-	if (GetAsyncKeyState('Q'))
-	{
-		m_pTransformCom->Rotation(ROT_X, 180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('A'))
-	{
-		m_pTransformCom->Rotation(ROT_X, -180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('W'))
+	if (GetAsyncKeyState(VK_LEFT))
 	{
 		m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
 	}
 
-	if (GetAsyncKeyState('S'))
+	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
 	}
 
-	if (GetAsyncKeyState('E'))
-	{
-		m_pTransformCom->Rotation(ROT_Z, 180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('D'))
-	{
-		m_pTransformCom->Rotation(ROT_Z, -180.f * fTimeDelta);
-	}
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

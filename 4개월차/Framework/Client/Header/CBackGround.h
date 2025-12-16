@@ -3,8 +3,8 @@
 
 namespace Engine
 {
-	class CRcCol;
-	class CTransform;
+	class CRcTex;
+	class CTexture;
 }
 
 class CBackGround : public CGameObject
@@ -22,11 +22,10 @@ public:
 
 private:
 	HRESULT					Add_Component();
-	void					Key_Input(const _float& fTimeDelta);
 
 private:
-	Engine::CRcCol*		m_pBufferCom;
-	Engine::CTransform*		m_pTransformCom;
+	Engine::CRcTex*			m_pBufferCom;
+	Engine::CTexture*		m_pTextureCom;
 
 public:
 	static	CBackGround*	Create(LPDIRECT3DDEVICE9 pGraphicDev);

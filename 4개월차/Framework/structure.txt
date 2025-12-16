@@ -2,11 +2,14 @@
 볼륨 일련 번호는 181E-6BE0입니다.
 C:.
 │  auto_commit_push.bat
+│  A_to_B.patch
+│  compare_dirs.bat
 │  Copy.bat
+│  diff_files.txt
 │  Framework.sln
-│  generate_structure.bat
 │  make_structure.bat
 │  structure.txt
+│  강사님 코드와 내 디렉토리 차이점 생성 방법.txt
 │  
 ├─Base
 │      CBase.h
@@ -14,21 +17,207 @@ C:.
 │      
 ├─Client
 │  ├─Bin
-│  │      Client.exe
-│  │      Client.exp
-│  │      Client.lib
-│  │      Client.pdb
-│  │      Engine.dll
-│  │      
+│  │  │  Client.exe
+│  │  │  Client.exp
+│  │  │  Client.lib
+│  │  │  Client.pdb
+│  │  │  Engine.dll
+│  │  │  
+│  │  └─Resource
+│  │      └─Texture
+│  │          │  156.dds
+│  │          │  158.dds
+│  │          │  hpbar.png
+│  │          │  hpbar1.png
+│  │          │  Monster0.png
+│  │          │  Monster1.png
+│  │          │  Player0.jpg
+│  │          │  Player0.png
+│  │          │  Player1.jpg
+│  │          │  Trail0.png
+│  │          │  Trail1.png
+│  │          │  Trail2.png
+│  │          │  Trail3.png
+│  │          │  Trail4.png
+│  │          │  Trail5.png
+│  │          │  
+│  │          ├─Explosion
+│  │          │      Explosion0.png
+│  │          │      Explosion1.png
+│  │          │      Explosion10.png
+│  │          │      Explosion11.png
+│  │          │      Explosion12.png
+│  │          │      Explosion13.png
+│  │          │      Explosion14.png
+│  │          │      Explosion15.png
+│  │          │      Explosion16.png
+│  │          │      Explosion17.png
+│  │          │      Explosion18.png
+│  │          │      Explosion19.png
+│  │          │      Explosion2.png
+│  │          │      Explosion20.png
+│  │          │      Explosion21.png
+│  │          │      Explosion22.png
+│  │          │      Explosion23.png
+│  │          │      Explosion24.png
+│  │          │      Explosion25.png
+│  │          │      Explosion26.png
+│  │          │      Explosion27.png
+│  │          │      Explosion28.png
+│  │          │      Explosion29.png
+│  │          │      Explosion3.png
+│  │          │      Explosion30.png
+│  │          │      Explosion31.png
+│  │          │      Explosion32.png
+│  │          │      Explosion33.png
+│  │          │      Explosion34.png
+│  │          │      Explosion35.png
+│  │          │      Explosion36.png
+│  │          │      Explosion37.png
+│  │          │      Explosion38.png
+│  │          │      Explosion39.png
+│  │          │      Explosion4.png
+│  │          │      Explosion40.png
+│  │          │      Explosion41.png
+│  │          │      Explosion42.png
+│  │          │      Explosion43.png
+│  │          │      Explosion44.png
+│  │          │      Explosion45.png
+│  │          │      Explosion46.png
+│  │          │      Explosion47.png
+│  │          │      Explosion48.png
+│  │          │      Explosion49.png
+│  │          │      Explosion5.png
+│  │          │      Explosion50.png
+│  │          │      Explosion51.png
+│  │          │      Explosion52.png
+│  │          │      Explosion53.png
+│  │          │      Explosion54.png
+│  │          │      Explosion55.png
+│  │          │      Explosion56.png
+│  │          │      Explosion57.png
+│  │          │      Explosion58.png
+│  │          │      Explosion59.png
+│  │          │      Explosion6.png
+│  │          │      Explosion60.png
+│  │          │      Explosion61.png
+│  │          │      Explosion62.png
+│  │          │      Explosion63.png
+│  │          │      Explosion64.png
+│  │          │      Explosion65.png
+│  │          │      Explosion66.png
+│  │          │      Explosion67.png
+│  │          │      Explosion68.png
+│  │          │      Explosion69.png
+│  │          │      Explosion7.png
+│  │          │      Explosion70.png
+│  │          │      Explosion71.png
+│  │          │      Explosion72.png
+│  │          │      Explosion73.png
+│  │          │      Explosion74.png
+│  │          │      Explosion75.png
+│  │          │      Explosion76.png
+│  │          │      Explosion77.png
+│  │          │      Explosion78.png
+│  │          │      Explosion79.png
+│  │          │      Explosion8.png
+│  │          │      Explosion80.png
+│  │          │      Explosion81.png
+│  │          │      Explosion82.png
+│  │          │      Explosion83.png
+│  │          │      Explosion84.png
+│  │          │      Explosion85.png
+│  │          │      Explosion86.png
+│  │          │      Explosion87.png
+│  │          │      Explosion88.png
+│  │          │      Explosion89.png
+│  │          │      Explosion9.png
+│  │          │      smoke0.png
+│  │          │      
+│  │          ├─Logo
+│  │          │      IU.jpg
+│  │          │      jang.jpg
+│  │          │      sana.jpg
+│  │          │      
+│  │          ├─LogoBack
+│  │          │      LogoBack_0.png
+│  │          │      LogoBack_1.png
+│  │          │      LogoBack_10.png
+│  │          │      LogoBack_11.png
+│  │          │      LogoBack_12.png
+│  │          │      LogoBack_13.png
+│  │          │      LogoBack_14.png
+│  │          │      LogoBack_15.png
+│  │          │      LogoBack_16.png
+│  │          │      LogoBack_17.png
+│  │          │      LogoBack_18.png
+│  │          │      LogoBack_19.png
+│  │          │      LogoBack_2.png
+│  │          │      LogoBack_20.png
+│  │          │      LogoBack_21.png
+│  │          │      LogoBack_22.png
+│  │          │      LogoBack_23.png
+│  │          │      LogoBack_24.png
+│  │          │      LogoBack_25.png
+│  │          │      LogoBack_26.png
+│  │          │      LogoBack_27.png
+│  │          │      LogoBack_28.png
+│  │          │      LogoBack_29.png
+│  │          │      LogoBack_3.png
+│  │          │      LogoBack_30.png
+│  │          │      LogoBack_31.png
+│  │          │      LogoBack_32.png
+│  │          │      LogoBack_33.png
+│  │          │      LogoBack_34.png
+│  │          │      LogoBack_35.png
+│  │          │      LogoBack_36.png
+│  │          │      LogoBack_37.png
+│  │          │      LogoBack_4.png
+│  │          │      LogoBack_5.png
+│  │          │      LogoBack_6.png
+│  │          │      LogoBack_7.png
+│  │          │      LogoBack_8.png
+│  │          │      LogoBack_9.png
+│  │          │      
+│  │          ├─Player
+│  │          │      Ma.jpg
+│  │          │      
+│  │          ├─SkyBox
+│  │          │      burger0.dds
+│  │          │      burger1.dds
+│  │          │      burger2.dds
+│  │          │      burger3.dds
+│  │          │      
+│  │          └─Terrain
+│  │                  Aura0.tga
+│  │                  GrassRock_0.tga
+│  │                  GrassRock_1.tga
+│  │                  Grass_0.tga
+│  │                  Grass_1.tga
+│  │                  Height.bmp
+│  │                  Height1.bmp
+│  │                  Height2.bmp
+│  │                  TempHeight.bmp
+│  │                  Terrain0.png
+│  │                  Tile0.jpg
+│  │                  
 │  ├─Code
 │  │      CBackGround.cpp
 │  │      CLogo.cpp
 │  │      CMainApp.cpp
+│  │      CMonster.cpp
+│  │      CPlayer.cpp
+│  │      CStage.cpp
+│  │      CTerrain.cpp
 │  │      
 │  ├─Header
 │  │      CBackGround.h
 │  │      CLogo.h
 │  │      CMainApp.h
+│  │      CMonster.h
+│  │      CPlayer.h
+│  │      CStage.h
+│  │      CTerrain.h
 │  │      
 │  └─Include
 │      │  Client.cpp
@@ -56,6 +245,10 @@ C:.
 │              │  Client.res
 │              │  CLogo.obj
 │              │  CMainApp.obj
+│              │  CMonster.obj
+│              │  CPlayer.obj
+│              │  CStage.obj
+│              │  CTerrain.obj
 │              │  pch.obj
 │              │  vc143.idb
 │              │  vc143.pdb
@@ -91,7 +284,10 @@ C:.
 │  │      CManagement.cpp
 │  │      CProtoMgr.cpp
 │  │      CRcCol.cpp
+│  │      CRcTex.cpp
 │  │      CScene.cpp
+│  │      CTerrainTex.cpp
+│  │      CTexture.cpp
 │  │      CTimer.cpp
 │  │      CTimerMgr.cpp
 │  │      CTransform.cpp
@@ -108,7 +304,10 @@ C:.
 │  │      CManagement.h
 │  │      CProtoMgr.h
 │  │      CRcCol.h
+│  │      CRcTex.h
 │  │      CScene.h
+│  │      CTerrainTex.h
+│  │      CTexture.h
 │  │      CTimer.h
 │  │      CTimerMgr.h
 │  │      CTransform.h
@@ -137,7 +336,10 @@ C:.
 │              │  CManagement.obj
 │              │  CProtoMgr.obj
 │              │  CRcCol.obj
+│              │  CRcTex.obj
 │              │  CScene.obj
+│              │  CTerrainTex.obj
+│              │  CTexture.obj
 │              │  CTimer.obj
 │              │  CTimerMgr.obj
 │              │  CTransform.obj
@@ -171,7 +373,10 @@ C:.
     │      CManagement.h
     │      CProtoMgr.h
     │      CRcCol.h
+    │      CRcTex.h
     │      CScene.h
+    │      CTerrainTex.h
+    │      CTexture.h
     │      CTimer.h
     │      CTimerMgr.h
     │      CTransform.h

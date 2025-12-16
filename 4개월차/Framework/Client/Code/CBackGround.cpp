@@ -33,63 +33,40 @@ _int	CBackGround::Update_GameObject(const _float& fTimeDelta)
 
 void	CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	Key_Input(fTimeDelta);
 
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 }
 
 void	CBackGround::Render_GameObject()
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pTextureCom->Set_Texture(0);
 
 	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CBackGround::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 
-	// RcCol
-	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcCol*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcCol"));
+	// RcTex
+	pComponent = m_pBufferCom = dynamic_cast<Engine::CRcTex*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
 
 	if (nullptr == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<Engine::CTransform*>
-		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
-
+	// Texture
+	pComponent = m_pTextureCom = dynamic_cast<Engine::CTexture*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_LogoTexture"));
+	
 	if (nullptr == pComponent)
 		return E_FAIL;
 
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
 	return S_OK;
-}
-
-void CBackGround::Key_Input(const _float& fTimeDelta)
-{
-	_vec3		vLook;
-
-	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
-
-	if (GetAsyncKeyState(VK_UP))
-	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), fTimeDelta, 10.f);
-	}
-
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
-	}
-
 }
 
 CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
