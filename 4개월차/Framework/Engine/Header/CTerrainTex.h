@@ -18,6 +18,10 @@ public:
 
 	virtual		void	Render_Buffer();
 
+private:
+	HANDLE				m_hFile;
+	BITMAPFILEHEADER	m_fH;
+	BITMAPINFOHEADER	m_iH;
 
 public:
 	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,

@@ -2,6 +2,7 @@
 #include "CStage.h"
 #include "CBackGround.h"
 #include "CProtoMgr.h"
+#include "CDynamicCamera.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
@@ -22,20 +23,6 @@ HRESULT CStage::Ready_Scene()
 
 	if (FAILED(Ready_UI_Layer(L"UI_Layer")))
 		return E_FAIL;
-
-	// 임시 코드
-
-	_matrix matView, matProj;
-
-	_vec3   vEye{ 0.f, 10.f, -10.f };
-	_vec3   vAt{ 0.f, 0.f, 1.f };
-	_vec3   vUp{ 0.f, 1.f, 0.f };
-
-	D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)WINCX / WINCY, 0.1f, 1000.f);
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	return S_OK;
 }
@@ -63,6 +50,19 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	CGameObject* pGameObject = nullptr;
+
+	_vec3	vEye{ 0.f, 10.f, -10.f };
+	_vec3	vAt{ 0.f, 0.f, 1.f };
+	_vec3	vUp{ 0.f, 1.f, 0.f };
+
+	// DynamicCamera
+	pGameObject = CDynamicCamera::Create(m_pGraphicDev, &vEye, &vAt, &vUp);
+
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(L"DynamicCamera", pGameObject)))
+		return E_FAIL;
 
 	// Terrain
 	pGameObject = CTerrain::Create(m_pGraphicDev);

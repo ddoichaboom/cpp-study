@@ -5,12 +5,15 @@ CTerrainTex::CTerrainTex()
 }
 
 CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CVIBuffer(pGraphicDev)
+	:CVIBuffer(pGraphicDev), m_hFile(nullptr)
 {
 }
 
 CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
-	: CVIBuffer(rhs)
+	: CVIBuffer(rhs),
+	m_hFile(rhs.m_hFile),
+	m_fH(rhs.m_fH),
+	m_iH(rhs.m_iH)
 {
 }
 
@@ -34,6 +37,29 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
 
+	// 높이 맵 이미지 불러오기 
+	// 1. BMP 파일 열기
+	m_hFile = CreateFile(L"../Bin/Resource/Texture/Terrain/Height1.bmp",
+		GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+
+	if (INVALID_HANDLE_VALUE == m_hFile)
+		return E_FAIL;
+
+	_ulong dwByte(0);
+
+	// 2. BITMAPFILEHEADER 읽기 (14바이트)
+	ReadFile(m_hFile, &m_fH, sizeof(BITMAPFILEHEADER), &dwByte, NULL);
+
+	// 3. BITMAPINFOHEADER 읽기 (40 바이트)
+	ReadFile(m_hFile, &m_iH, sizeof(BITMAPINFOHEADER), &dwByte, NULL);
+
+	// 4. 픽셀 데이터 저장 공간 할당 
+	_ulong* pPixel = new _ulong[m_iH.biWidth * m_iH.biHeight];
+
+	// 5. 픽셀 데이터 읽기
+	ReadFile(m_hFile, pPixel, sizeof(_ulong) * m_iH.biWidth * m_iH.biHeight, &dwByte, NULL);
+
+
 	VTXTEX* pVertex = NULL;
 
 	// &pVertex : 버텍스 버퍼에 저장된 정점 중 첫 번째 주소를 얻어 옴.
@@ -48,13 +74,23 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 		{
 			dwIndex = i * dwCntX + j;
 
-			pVertex[dwIndex].vPosition = { _float(j * dwVtxItv), 0.f, _float(i * dwVtxItv) };
+			pVertex[dwIndex].vPosition = 
+			{
+				_float(j * dwVtxItv),
+				_float(pPixel[dwIndex] & 0x000000ff) / 20.f,
+				_float(i * dwVtxItv)
+			};
 			pVertex[dwIndex].vTexUV = { (_float)j / (dwCntX - 1),
 										(_float)i / (dwCntZ - 1) };
 		}
 	}
 
 	m_pVB->Unlock();
+
+
+	// 메모리 해제 및 파일 닫기
+	Safe_Delete_Array(pPixel);
+	CloseHandle(m_hFile);
 
 	INDEX32* pIndex = nullptr;
 
