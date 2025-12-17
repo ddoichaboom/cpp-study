@@ -4,6 +4,8 @@
 #include "CStage.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "CDInputMgr.h"
+#include "CFontMgr.h"
 
 CMainApp::CMainApp() 
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr),
@@ -29,6 +31,8 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MainApp(const float& fTimeDelta)
 {
+	CDInputMgr::GetInstance()->Update_InputDev();
+
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
 	return 0;
@@ -63,6 +67,21 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->AddRef();
 
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+	// DInputMgr
+
+	if (FAILED(CDInputMgr::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
+		return E_FAIL;
+
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+
+	// 폰트 추가 
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font((*ppGraphicDev), L"Font_Default", L"견명조", 20, 20, FW_HEAVY)))
+		return E_FAIL;
+
+	if (FAILED(CFontMgr::GetInstance()->Ready_Font((*ppGraphicDev), L"Font_Jinji", L"궁서", 20, 15, FW_THIN)))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -103,6 +122,8 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CFontMgr::DestroyInstance();
+	CDInputMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
 	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();

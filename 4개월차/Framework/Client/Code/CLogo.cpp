@@ -4,6 +4,7 @@
 #include "CProtoMgr.h"
 #include "CStage.h"
 #include "CManagement.h"
+#include "CFontMgr.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     :   CScene(pGraphicDev), m_pLoading(nullptr)
@@ -26,6 +27,9 @@ HRESULT	CLogo::Ready_Scene()
 
     // 로딩 스레드 생성 및 시작
     m_pLoading = CLoading::Create(m_pGraphicDev, CLoading::LOADING_STAGE);
+
+    if (nullptr == m_pLoading)
+        return E_FAIL;
 
     return S_OK;
 }
@@ -61,6 +65,10 @@ void	CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 
 void	CLogo::Render_Scene()
 {
+    _vec2		vPos{ 100.f, 100.f };
+
+    CFontMgr::GetInstance()->Render_Font(L"Font_Default", m_pLoading->Get_String(), &vPos, D3DXCOLOR(1.f, 0.f, 0.f, 1.f));
+
 }
 
 HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)

@@ -38,7 +38,7 @@ void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
 	Engine::CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>(Engine::CManagement::GetInstance()->
-		Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
+		Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
 
 	if (nullptr == pPlayerTransformCom)
 		return;

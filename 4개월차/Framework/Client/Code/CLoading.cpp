@@ -33,6 +33,8 @@ HRESULT CLoading::Ready_Loading(LOADINGID eID)
 
 _uint CLoading::Loading_ForStage()
 {
+    lstrcpy(m_szLoading, L"Buffer Loading..............................");
+
     // Proto_TriCol
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TriCol", Engine::CTriCol::Create(m_pGraphicDev))))
         return E_FAIL;
@@ -45,9 +47,11 @@ _uint CLoading::Loading_ForStage()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTex", Engine::CTerrainTex::Create(m_pGraphicDev, VTXCNTX, VTXCNTZ, VTXITV))))
         return E_FAIL;
 
-    // Proto_Transform
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+    // Proto_CubeTex
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_CubeTex", Engine::CCubeTex::Create(m_pGraphicDev))))
         return E_FAIL;
+
+    lstrcpy(m_szLoading, L"Texture Loading..............................");
 
     // Proto_PlayerTexture
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PlayerTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Player0.png", 1))))
@@ -57,8 +61,20 @@ _uint CLoading::Loading_ForStage()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.png", 1))))
         return E_FAIL;
 
+    // Proto_SkyTexture
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4))))
+        return E_FAIL;
+
+    lstrcpy(m_szLoading, L"Etc Loading..............................");
+
+    // Proto_Transform
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
+        return E_FAIL;
+
     // 로딩 완료 
     m_bFinish = true;
+
+    lstrcpy(m_szLoading, L"Loading Complete!!");
 
     return 0;
 }

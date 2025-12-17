@@ -25,9 +25,13 @@ public:
 
 private:
 	_float		m_fSpeed;
+	_bool		m_bFix;
+	_bool		m_bCheck;
 
 private:
 	void		Key_Input(const _float& fTimeDelta);
+	void		Mouse_Move();
+	void		Mouse_Fix();
 
 public:
 	static CDynamicCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev,

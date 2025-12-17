@@ -39,7 +39,7 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 
 	// 높이 맵 이미지 불러오기 
 	// 1. BMP 파일 열기
-	m_hFile = CreateFile(L"../Bin/Resource/Texture/Terrain/Height1.bmp",
+	m_hFile = CreateFile(L"../Bin/Resource/Texture/Terrain/Height.bmp",
 		GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 
 	if (INVALID_HANDLE_VALUE == m_hFile)
@@ -80,8 +80,11 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 				_float(pPixel[dwIndex] & 0x000000ff) / 20.f,
 				_float(i * dwVtxItv)
 			};
-			pVertex[dwIndex].vTexUV = { (_float)j / (dwCntX - 1),
-										(_float)i / (dwCntZ - 1) };
+			pVertex[dwIndex].vTexUV = 
+			{ 
+				((_float)j / (dwCntX - 1)) * 20.f,
+				((_float)i / (dwCntZ - 1)) * 20.f
+			};
 		}
 	}
 

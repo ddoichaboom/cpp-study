@@ -3,6 +3,7 @@
 #include "CBackGround.h"
 #include "CProtoMgr.h"
 #include "CDynamicCamera.h"
+#include "CSkyBox.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CScene(pGraphicDev)
@@ -51,6 +52,14 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 
 	CGameObject* pGameObject = nullptr;
 
+	pGameObject = CSkyBox::Create(m_pGraphicDev);
+
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(L"SkyBox", pGameObject)))
+		return E_FAIL;
+
 	_vec3	vEye{ 0.f, 10.f, -10.f };
 	_vec3	vAt{ 0.f, 0.f, 1.f };
 	_vec3	vUp{ 0.f, 1.f, 0.f };
@@ -62,15 +71,6 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	if (FAILED(pLayer->Add_GameObject(L"DynamicCamera", pGameObject)))
-		return E_FAIL;
-
-	// Terrain
-	pGameObject = CTerrain::Create(m_pGraphicDev);
-
-	if (nullptr == pGameObject)
-		return E_FAIL;
-
-	if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
 		return E_FAIL;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
@@ -85,6 +85,15 @@ HRESULT CStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
 		return E_FAIL;
 
 	CGameObject* pGameObject = nullptr;
+
+	// Terrain
+	pGameObject = CTerrain::Create(m_pGraphicDev);
+
+	if (nullptr == pGameObject)
+		return E_FAIL;
+
+	if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
+		return E_FAIL;
 
 	// Player 
 	pGameObject = CPlayer::Create(m_pGraphicDev);
