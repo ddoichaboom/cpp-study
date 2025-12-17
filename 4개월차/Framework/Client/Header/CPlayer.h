@@ -12,7 +12,7 @@ class CPlayer : public CGameObject
 {
 private:
     explicit CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
-    explicit CPlayer(const CPlayer& rhs);
+    explicit CPlayer(const CGameObject& rhs);
     virtual ~CPlayer();
 
 public:

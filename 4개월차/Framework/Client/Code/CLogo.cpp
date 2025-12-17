@@ -2,9 +2,11 @@
 #include "CLogo.h"
 #include "CBackGround.h"
 #include "CProtoMgr.h"
+#include "CStage.h"
+#include "CManagement.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
-    :   CScene(pGraphicDev)
+    :   CScene(pGraphicDev), m_pLoading(nullptr)
 {
 
 }
@@ -22,12 +24,32 @@ HRESULT	CLogo::Ready_Scene()
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
 
+    // 로딩 스레드 생성 및 시작
+    m_pLoading = CLoading::Create(m_pGraphicDev, CLoading::LOADING_STAGE);
+
     return S_OK;
 }
 
 _int	CLogo::Update_Scene(const _float& fTimeDelta)
 {
     _int    iExit = Engine::CScene::Update_Scene(fTimeDelta);
+
+    if (true == m_pLoading->Get_Finish())
+    {
+        if (GetAsyncKeyState(VK_RETURN))
+        {
+            Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
+
+            if (nullptr == pStage)
+                return -1;
+
+            if (FAILED(CManagement::GetInstance()->Set_Scene(pStage)))
+            {
+                MSG_BOX("Stage Scene Failed");
+                return -1;
+            }
+        }
+    }
 
     return iExit;
 }
@@ -87,5 +109,7 @@ CLogo* CLogo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CLogo::Free()
 {
+    Safe_Release(m_pLoading);
+
     CScene::Free();
 }

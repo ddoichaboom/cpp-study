@@ -11,7 +11,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 }
 
-CPlayer::CPlayer(const CPlayer& rhs)
+CPlayer::CPlayer(const CGameObject& rhs)
 	: CGameObject(rhs)
 {
 }

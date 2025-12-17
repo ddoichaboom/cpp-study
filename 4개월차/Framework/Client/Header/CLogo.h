@@ -1,8 +1,6 @@
 #pragma once
 #include "CScene.h"
-
-#include "CPlayer.h"
-#include "CMonster.h"
+#include "CLoading.h"
 
 class CLogo : public CScene
 {
@@ -22,6 +20,9 @@ private:
 
 private:
 	HRESULT					Ready_Prototype();
+
+private:
+	CLoading*				m_pLoading;
 
 public:
 	static		CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);

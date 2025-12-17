@@ -18,17 +18,14 @@ public:
 	virtual			void		Render_Scene();
 
 private:
-	HRESULT			Ready_Environment_Layer(const _tchar* pLayerTag);
-	HRESULT			Ready_GameLogic_Layer(const _tchar* pLayerTag);
-	HRESULT			Ready_UI_Layer(const _tchar* pLayerTag);
-
-private:
-	HRESULT			Ready_Prototype();
+	HRESULT						Ready_Environment_Layer(const _tchar* pLayerTag);
+	HRESULT						Ready_GameLogic_Layer(const _tchar* pLayerTag);
+	HRESULT						Ready_UI_Layer(const _tchar* pLayerTag);
 
 public:
-	static	CStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static	CStage*				Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	virtual void Free();
+	virtual void				Free();
 };
 

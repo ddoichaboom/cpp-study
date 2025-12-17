@@ -10,7 +10,7 @@ namespace Engine
 
 class CTerrain : public CGameObject
 {
-private:
+private: 
 	explicit CTerrain(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTerrain(const CGameObject& rhs);
 	virtual ~CTerrain();

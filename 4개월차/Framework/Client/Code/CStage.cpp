@@ -14,9 +14,6 @@ CStage::~CStage()
 
 HRESULT CStage::Ready_Scene()
 {
-	if (FAILED(Ready_Prototype()))
-		return E_FAIL;
-
 	if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
 		return E_FAIL;
 
@@ -122,34 +119,6 @@ HRESULT CStage::Ready_UI_Layer(const _tchar* pLayerTag)
 	CGameObject* pGameObject = nullptr;
 
 	m_mapLayer.insert({ pLayerTag, pLayer });
-
-	return S_OK;
-}
-
-HRESULT CStage::Ready_Prototype()
-{
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TriCol", Engine::CTriCol::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcCol", Engine::CRcCol::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_RcTex", Engine::CRcTex::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTex", Engine::CTerrainTex::Create(m_pGraphicDev, VTXCNTX, VTXCNTZ, VTXITV))))
-		return E_FAIL;
-
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_PlayerTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Player0.png", 1))))
-		return E_FAIL;
-
-	if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.png", 1))))
-		return E_FAIL;
-
 
 	return S_OK;
 }
