@@ -5,7 +5,7 @@ CTerrainTex::CTerrainTex()
 }
 
 CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CVIBuffer(pGraphicDev), m_hFile(nullptr)
+	:CVIBuffer(pGraphicDev), m_hFile(nullptr), m_pPos(nullptr)
 {
 }
 
@@ -13,7 +13,8 @@ CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
 	: CVIBuffer(rhs),
 	m_hFile(rhs.m_hFile),
 	m_fH(rhs.m_fH),
-	m_iH(rhs.m_iH)
+	m_iH(rhs.m_iH),
+	m_pPos(rhs.m_pPos)
 {
 }
 
@@ -33,6 +34,8 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 
 	m_dwIdxSize = sizeof(INDEX32);
 	m_IdxFmt = D3DFMT_INDEX32;
+
+	m_pPos = new _vec3[m_dwVtxCnt];
 
 	if (FAILED(CVIBuffer::Ready_Buffer()))
 		return E_FAIL;
@@ -85,6 +88,8 @@ HRESULT CTerrainTex::Ready_Buffer(const _ulong& dwCntX,
 				((_float)j / (dwCntX - 1)) * 20.f,
 				((_float)i / (dwCntZ - 1)) * 20.f
 			};
+
+			m_pPos[dwIndex] = pVertex[dwIndex].vPosition;
 		}
 	}
 
@@ -156,5 +161,8 @@ CComponent* CTerrainTex::Clone()
 
 void CTerrainTex::Free()
 {
+	if (m_bClone == false)
+		Safe_Delete_Array(m_pPos);
+
 	CVIBuffer::Free();
 }

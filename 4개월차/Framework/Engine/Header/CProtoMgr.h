@@ -7,6 +7,7 @@
 
 #include "CTransform.h"
 #include "CTexture.h"
+#include "CCalculator.h"
 
 BEGIN(Engine)
 

@@ -32,6 +32,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
+	Set_OnTerrain();
+
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 
 	return iExit;
@@ -87,6 +89,16 @@ HRESULT CPlayer::Add_Component()
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
+	// Calculator
+	pComponent = m_pCalculatorCom = dynamic_cast<Engine::CCalculator*>
+		(Engine::CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Calculator"));
+
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Calculator", pComponent });
+
+
 	return S_OK;
 }
 
@@ -116,6 +128,22 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
 	}
 
+}
+
+void CPlayer::Set_OnTerrain()
+{
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	Engine::CTerrainTex* pTerrainVtxCom = dynamic_cast<CTerrainTex*>(CManagement::GetInstance()->
+		Get_Component(ID_STATIC, L"GameLogic_Layer", L"Terrain", L"Com_Buffer"));
+
+	if (nullptr == pTerrainVtxCom)
+		return;
+
+	_float		fHeight = m_pCalculatorCom->Compute_HeightOnTerrain(&vPos, pTerrainVtxCom->Get_VtxPos(), VTXCNTX, VTXCNTZ);
+
+	m_pTransformCom->Set_Pos(vPos.x, fHeight + 1.f, vPos.z);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

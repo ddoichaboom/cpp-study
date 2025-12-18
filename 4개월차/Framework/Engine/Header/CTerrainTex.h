@@ -12,6 +12,8 @@ protected:
 	virtual ~CTerrainTex();
 
 public:
+	const	_vec3*		Get_VtxPos() { return m_pPos; }
+
 	HRESULT				Ready_Buffer(const _ulong& dwCntX,
 									const _ulong& dwCntZ,
 									const _ulong& dwVtxItv);
@@ -22,6 +24,8 @@ private:
 	HANDLE				m_hFile;
 	BITMAPFILEHEADER	m_fH;
 	BITMAPINFOHEADER	m_iH;
+
+	_vec3*				m_pPos;
 
 public:
 	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev,
