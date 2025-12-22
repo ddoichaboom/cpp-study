@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{01a60eb1-f981-433e-9600-adbdaa725e7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. EditorApp">
+      <UniqueIdentifier>{61633852-8042-44d0-adfd-f2e25036b906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI">
+      <UniqueIdentifier>{e626b21e-f656-401f-a6ea-8bafa474d0c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool">
+      <UniqueIdentifier>{141ba642-3b15-436e-a5a5-129947db2bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI\00. MainMenuBar">
+      <UniqueIdentifier>{fc83856d-e271-4458-a06d-49195347ace0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool\00. MapEditor">
+      <UniqueIdentifier>{b98a236d-0757-43d1-9535-65a7d9b1f4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool\01. GridRenderer">
+      <UniqueIdentifier>{57f92d08-70b5-4800-9052-5d6b3333311b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Tool\02. FileIO">
+      <UniqueIdentifier>{d7ca1b5f-72a5-496d-b969-d0873771c1eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene">
+      <UniqueIdentifier>{bfd71e95-fc65-4d23-87fa-1e7c7c795da0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\00. EditorScene">
+      <UniqueIdentifier>{44813633-5ddd-41cc-8637-235edb819bd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\01. EditorCamera">
+      <UniqueIdentifier>{6773d6ee-9340-42cd-ae82-f03505258d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\02. Grid">
+      <UniqueIdentifier>{87383d7a-721a-4c34-9a70-20d9d5ed9542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI\01. ToolBar">
+      <UniqueIdentifier>{f2a72e38-6bab-4fb5-bb52-0a0e5607d233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object">
+      <UniqueIdentifier>{fc5f7423-1677-4507-9420-9bcd02935bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\00. EditorObject">
+      <UniqueIdentifier>{713fbc9d-bcbc-4f41-ac53-885d49f0ce5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\01. EditorTile">
+      <UniqueIdentifier>{f6176207-6c15-4320-b219-68b75ae02888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Object\02. EditorCube">
+      <UniqueIdentifier>{99e3d0b7-e21a-4625-910a-dc3a933a9fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Picking">
+      <UniqueIdentifier>{5eb262ae-4f4e-4448-baaf-13a71a903ff3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resource">
+      <UniqueIdentifier>{ef0d17d5-21df-4dfe-becd-af02b03eff76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Picking\00. MousePicker">
+      <UniqueIdentifier>{ba7db12f-6d67-49e0-ae97-4865b4dd18c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Resource\00. TextureMgr">
+      <UniqueIdentifier>{6eb392bd-b943-4155-8000-96da368dfb09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI\02. Hierarchy">
+      <UniqueIdentifier>{4e5664d2-f011-4d04-9cde-e14bdbe097aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. UI\03. Inspector">
+      <UniqueIdentifier>{20054ff8-8e32-4907-ad1b-d6a942bf6bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Picking\01. SelectionManager">
+      <UniqueIdentifier>{4cd88382-8ffa-4698-82dd-1ec847eedf1f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_impl_dx9.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_impl_win32.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorApp.h">
+      <Filter>00. EditorApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMainMenuBar.h">
+      <Filter>01. UI\00. MainMenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHierarchy.h">
+      <Filter>01. UI\02. Hierarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInspector.h">
+      <Filter>01. UI\03. Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CToolBar.h">
+      <Filter>01. UI\01. ToolBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMapEditor.h">
+      <Filter>02. Tool\00. MapEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFileIO.h">
+      <Filter>02. Tool\02. FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorScene.h">
+      <Filter>03. Scene\00. EditorScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorCamera.h">
+      <Filter>03. Scene\01. EditorCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGrid.h">
+      <Filter>03. Scene\02. Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorObject.h">
+      <Filter>04. Object\00. EditorObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorTile.h">
+      <Filter>04. Object\01. EditorTile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorCube.h">
+      <Filter>04. Object\02. EditorCube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMousePicker.h">
+      <Filter>05. Picking\00. MousePicker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSelectionMgr.h">
+      <Filter>05. Picking\01. SelectionManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Editor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_impl_dx9.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorApp.cpp">
+      <Filter>00. EditorApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMainMenuBar.cpp">
+      <Filter>01. UI\00. MainMenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHierarchy.cpp">
+      <Filter>01. UI\02. Hierarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInspector.cpp">
+      <Filter>01. UI\03. Inspector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CToolBar.cpp">
+      <Filter>01. UI\01. ToolBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMapEditor.cpp">
+      <Filter>02. Tool\00. MapEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFileIO.cpp">
+      <Filter>02. Tool\02. FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorScene.cpp">
+      <Filter>03. Scene\00. EditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorCamera.cpp">
+      <Filter>03. Scene\01. EditorCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGrid.cpp">
+      <Filter>03. Scene\02. Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorObject.cpp">
+      <Filter>04. Object\00. EditorObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorTile.cpp">
+      <Filter>04. Object\01. EditorTile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorCube.cpp">
+      <Filter>04. Object\02. EditorCube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMousePicker.cpp">
+      <Filter>05. Picking\00. MousePicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSelectionMgr.cpp">
+      <Filter>05. Picking\01. SelectionManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Editor.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Editor.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
